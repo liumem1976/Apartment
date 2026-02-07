@@ -41,8 +41,6 @@ def test_rooms_import_idempotent():
         Building,
         Community,
         Company,
-        Lease,
-        Tenant,
         Unit,
     )
 
