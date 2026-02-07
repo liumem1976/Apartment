@@ -1,12 +1,12 @@
 from datetime import date
 
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 from sqlmodel import Session, select
 
 from app.auth import get_password_hash
 from app.db import engine, init_db
 from app.main import app
-from app.models import Lease, Unit, User
+from app.models import Unit, User
 
 
 def setup_module(module):
