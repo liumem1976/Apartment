@@ -150,7 +150,7 @@ def test_leases_import_rollback_on_overlap():
         uid = unit.id
 
     # create an existing lease that overlaps
-    from app.models import Tenant
+    from app.models import Tenant, Lease
 
     with Session(engine) as s:
         existing = s.exec(select(Lease).where(Lease.unit_id == uid)).first()
