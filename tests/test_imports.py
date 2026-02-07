@@ -114,8 +114,8 @@ def test_leases_import_rollback_on_overlap():
             t = Tenant(name="Existing", mobile="13900000000")
             s.add(t)
             s.flush()
-            l = Lease(unit_id=uid, tenant_id=t.id, start_date=date(2026, 2, 1), end_date=date(2026, 2, 28), rent_amount=1000, deposit_amount=1000)
-            s.add(l)
+            lease_rec = Lease(unit_id=uid, tenant_id=t.id, start_date=date(2026, 2, 1), end_date=date(2026, 2, 28), rent_amount=1000, deposit_amount=1000)
+            s.add(lease_rec)
             s.commit()
 
     # attempt import with overlapping lease row

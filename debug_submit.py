@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 from app.main import app
 from sqlmodel import Session, select
 from app.db import engine
-from app.models import User
+from app.models import User, Unit
 from app.auth import get_password_hash
 
 client = TestClient(app)
@@ -16,7 +16,6 @@ res = client.post('/api/auth/token', data={'username':'clerk1','password':'cpass
 print('token', res.status_code, res.text)
 token = res.json().get('access_token')
 
-from app.models import Unit
 with Session(engine) as s:
     unit = s.exec(select(Unit)).first()
     if not unit:

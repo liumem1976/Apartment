@@ -5,7 +5,7 @@ from typing import Tuple, Optional, List
 from sqlmodel import Session, select
 
 from .db import engine
-from .models import Lease, Unit, Bill, BillLine, AuditLog
+from .models import Lease, Bill, BillLine, AuditLog
 
 
 def _add_months(d: date, months: int) -> date:

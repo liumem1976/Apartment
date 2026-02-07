@@ -64,9 +64,9 @@ def create_sample_unit_and_lease():
 
 def test_full_bill_lifecycle():
     client = TestClient(app)
-    clerk = make_user("clerk1", "cpass", "clerk")
-    finance = make_user("fin1", "fpass", "finance")
-    admin = make_user("admin1", "apass", "admin")
+    make_user("clerk1", "cpass", "clerk")
+    make_user("fin1", "fpass", "finance")
+    make_user("admin1", "apass", "admin")
 
     unit_id, lease = create_sample_unit_and_lease()
 

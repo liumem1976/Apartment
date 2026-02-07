@@ -1,5 +1,6 @@
 from logging.config import fileConfig
 import os
+import sys
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
@@ -7,6 +8,10 @@ from sqlalchemy import pool
 from alembic import context
 
 from sqlmodel import SQLModel
+
+# ensure project root on path for model imports
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from app.models import *  # noqa: F401,F403
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -16,10 +21,6 @@ config = context.config
 fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from app.models import *  # noqa: F401,F403
-
 target_metadata = SQLModel.metadata
 
 

@@ -1,10 +1,10 @@
 from __future__ import annotations
 from datetime import date, datetime
 from decimal import Decimal
-from typing import Optional, List
+from typing import Optional
 
-from sqlmodel import SQLModel, Field, Relationship
-from sqlalchemy import Column, Integer, String, Numeric, ForeignKey, UniqueConstraint, Date, Text
+from sqlmodel import SQLModel, Field
+from sqlalchemy import Column, String, Numeric, UniqueConstraint, Text
 
 
 def DecimalColumn(scale: int = 4, precision: int = 18):

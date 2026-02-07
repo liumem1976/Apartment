@@ -3,8 +3,7 @@ import csv
 from io import TextIOWrapper
 from decimal import Decimal
 from datetime import datetime
-from typing import List, Dict, Any, Optional
-import os
+from typing import List, Dict, Any
 import json
 import traceback
 

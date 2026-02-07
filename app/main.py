@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Optional
 from sqlmodel import Session, select
-import os
 
 from .db import init_db, engine
 from .models import User
@@ -18,10 +17,9 @@ from .auth import (
 from .billing import generate_bill_for_unit, generate_batch_for_company
 from datetime import datetime
 import json
-from sqlmodel import Session, select
 from .models import Bill, BillLine, AuditLog
 from fastapi import File, UploadFile, BackgroundTasks
-from .imports import import_rooms_file, import_leases_file, ImportErrors, process_import_batch
+from .imports import process_import_batch
 import shutil
 import uuid
 import os
@@ -137,8 +135,8 @@ def api_bill_approve(bill_id: int, current_user: User = Depends(require_role("fi
         # freeze snapshot of lines
         lines = session.exec(select(BillLine).where(BillLine.bill_id == bill.id)).all()
         snapshot = []
-        for l in lines:
-            snapshot.append({"charge_code": l.charge_code, "qty": str(l.qty) if l.qty is not None else None, "unit_price": str(l.unit_price) if l.unit_price is not None else None, "amount": str(l.amount)})
+        for line in lines:
+            snapshot.append({"charge_code": line.charge_code, "qty": str(line.qty) if line.qty is not None else None, "unit_price": str(line.unit_price) if line.unit_price is not None else None, "amount": str(line.amount)})
         before = json.dumps({"status": bill.status})
         bill.frozen_snapshot = json.dumps(snapshot, ensure_ascii=False)
         bill.status = "approved"
