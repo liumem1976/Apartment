@@ -1,0 +1,5 @@
+# Code owners for repository. Replace placeholders with actual GitHub usernames or teams.
+# Example: * @my-org/maintainers
+
+# Default owners for all files
+* @your-org/maintainers

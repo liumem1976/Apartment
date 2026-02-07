@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Run linters (ruff)
+        run: |
+          if command -v ruff >/dev/null 2>&1; then
+            ruff check . || true
+          fi
+
+      - name: Run tests
+        run: |
+          pytest -q
+
+  pr-template-check:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Check PR body against template
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const body = context.payload.pull_request && context.payload.pull_request.body ? context.payload.pull_request.body : '';
+            const required = [
+              '## 简要说明',
+              '## 测试',
+              '本地已运行 `pytest` 并通过'
+            ];
+            const missing = required.filter(r => !body.includes(r));
+            if (missing.length > 0) {
+              core.setFailed(`PR body is missing required sections: ${missing.join(', ')}`);
+            } else {
+              console.log('PR template checks passed');
+            }
