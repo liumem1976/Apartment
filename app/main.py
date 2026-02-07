@@ -1,29 +1,34 @@
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi.responses import HTMLResponse
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordRequestForm
-from typing import Optional
-from sqlmodel import Session, select
-
-from .db import init_db, engine
-from .models import User
-from .auth import (
-    create_access_token,
-    authenticate_user,
-    get_password_hash,
-    get_current_user,
-    require_role,
-)
-from .billing import generate_bill_for_unit, generate_batch_for_company
-from datetime import datetime
 import json
-from .models import Bill, BillLine, AuditLog
-from fastapi import File, UploadFile, BackgroundTasks
-from .imports import process_import_batch
+import os
 import shutil
 import uuid
-import os
-from .models import ImportBatch
+from datetime import datetime
+from typing import Optional
+
+from fastapi import (
+    BackgroundTasks,
+    Depends,
+    FastAPI,
+    File,
+    Form,
+    HTTPException,
+    UploadFile,
+)
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from sqlmodel import Session, select
+
+from .auth import (
+    authenticate_user,
+    create_access_token,
+    get_current_user,
+    get_password_hash,
+    require_role,
+)
+from .billing import generate_batch_for_company, generate_bill_for_unit
+from .db import engine, init_db
+from .imports import process_import_batch
+from .models import AuditLog, Bill, BillLine, ImportBatch, User
 
 app = FastAPI(title="LAN Apartment Billing System")
 
@@ -46,9 +51,15 @@ def on_startup():
     admin_pwd = os.getenv("ADMIN_PASSWORD")
     if admin_pwd:
         with Session(engine) as session:
-            existing = session.exec(select(User).where(User.username == admin_user)).first()
+            existing = session.exec(
+                select(User).where(User.username == admin_user)
+            ).first()
             if not existing:
-                u = User(username=admin_user, password_hash=get_password_hash(admin_pwd), role="admin")
+                u = User(
+                    username=admin_user,
+                    password_hash=get_password_hash(admin_pwd),
+                    role="admin",
+                )
                 session.add(u)
                 session.commit()
 
@@ -64,8 +75,8 @@ def health():
 
 
 @app.post("/api/auth/token")
-def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(form_data.username, form_data.password)
+def login_for_access_token(username: str = Form(...), password: str = Form(...)):
+    user = authenticate_user(username, password)
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     access_token = create_access_token(data={"sub": user.username})
@@ -83,27 +94,44 @@ def create_user(username: str, password: str, role: str = "clerk"):
         existing = session.exec(select(User).where(User.username == username)).first()
         if existing:
             raise HTTPException(status_code=400, detail="User exists")
-        user = User(username=username, password_hash=get_password_hash(password), role=role)
+        user = User(
+            username=username, password_hash=get_password_hash(password), role=role
+        )
         session.add(user)
         session.commit()
         return {"username": user.username, "role": user.role}
 
 
 @app.post("/api/v1/bills/generate")
-def api_generate_bill(unit_id: int, date: str, current_user: User = Depends(require_role("clerk"))):
+def api_generate_bill(
+    unit_id: int, date: str, current_user: User = Depends(require_role("clerk"))
+):
     d = datetime.strptime(date, "%Y-%m-%d").date()
     bill = generate_bill_for_unit(unit_id, d, actor_id=current_user.id)
-    return {"bill_id": bill.id, "cycle_start": str(bill.cycle_start), "cycle_end": str(bill.cycle_end)}
+    return {
+        "bill_id": bill.id,
+        "cycle_start": str(bill.cycle_start),
+        "cycle_end": str(bill.cycle_end),
+    }
 
 
 @app.post("/api/v1/bills/generate-batch")
-def api_generate_batch(company_id: int, date: str, current_user: User = Depends(require_role("clerk"))):
+def api_generate_batch(
+    company_id: int, date: str, current_user: User = Depends(require_role("clerk"))
+):
     d = datetime.strptime(date, "%Y-%m-%d").date()
     bills = generate_batch_for_company(company_id, d, actor_id=current_user.id)
     return {"created": len(bills)}
 
 
-def _record_audit(session: Session, actor_id: int, action: str, before: Optional[str], after: Optional[str], ip: Optional[str] = None):
+def _record_audit(
+    session: Session,
+    actor_id: int,
+    action: str,
+    before: Optional[str],
+    after: Optional[str],
+    ip: Optional[str] = None,
+):
     al = AuditLog(actor_id=actor_id, action=action, before=before, after=after, ip=ip)
     session.add(al)
 
@@ -118,14 +146,22 @@ def api_bill_submit(bill_id: int, current_user: User = Depends(require_role("cle
             raise HTTPException(status_code=400, detail="Bill not in draft")
         before = json.dumps({"status": bill.status})
         bill.status = "submitted"
-        _record_audit(session, current_user.id, "submit", before, json.dumps({"status": bill.status}))
+        _record_audit(
+            session,
+            current_user.id,
+            "submit",
+            before,
+            json.dumps({"status": bill.status}),
+        )
         session.add(bill)
         session.commit()
         return {"bill_id": bill.id, "status": bill.status}
 
 
 @app.post("/api/v1/bills/{bill_id}/approve")
-def api_bill_approve(bill_id: int, current_user: User = Depends(require_role("finance"))):
+def api_bill_approve(
+    bill_id: int, current_user: User = Depends(require_role("finance"))
+):
     with Session(engine) as session:
         bill = session.get(Bill, bill_id)
         if not bill:
@@ -136,11 +172,26 @@ def api_bill_approve(bill_id: int, current_user: User = Depends(require_role("fi
         lines = session.exec(select(BillLine).where(BillLine.bill_id == bill.id)).all()
         snapshot = []
         for line in lines:
-            snapshot.append({"charge_code": line.charge_code, "qty": str(line.qty) if line.qty is not None else None, "unit_price": str(line.unit_price) if line.unit_price is not None else None, "amount": str(line.amount)})
+            snapshot.append(
+                {
+                    "charge_code": line.charge_code,
+                    "qty": str(line.qty) if line.qty is not None else None,
+                    "unit_price": (
+                        str(line.unit_price) if line.unit_price is not None else None
+                    ),
+                    "amount": str(line.amount),
+                }
+            )
         before = json.dumps({"status": bill.status})
         bill.frozen_snapshot = json.dumps(snapshot, ensure_ascii=False)
         bill.status = "approved"
-        _record_audit(session, current_user.id, "approve", before, json.dumps({"status": bill.status}))
+        _record_audit(
+            session,
+            current_user.id,
+            "approve",
+            before,
+            json.dumps({"status": bill.status}),
+        )
         session.add(bill)
         session.commit()
         return {"bill_id": bill.id, "status": bill.status}
@@ -156,7 +207,13 @@ def api_bill_issue(bill_id: int, current_user: User = Depends(require_role("fina
             raise HTTPException(status_code=400, detail="Bill not in approved state")
         before = json.dumps({"status": bill.status})
         bill.status = "issued"
-        _record_audit(session, current_user.id, "issue", before, json.dumps({"status": bill.status}))
+        _record_audit(
+            session,
+            current_user.id,
+            "issue",
+            before,
+            json.dumps({"status": bill.status}),
+        )
         session.add(bill)
         session.commit()
         return {"bill_id": bill.id, "status": bill.status}
@@ -170,13 +227,24 @@ def api_bill_void(bill_id: int, current_user: User = Depends(require_role("admin
             raise HTTPException(status_code=404, detail="Bill not found")
         before = json.dumps({"status": bill.status})
         bill.status = "void"
-        _record_audit(session, current_user.id, "void", before, json.dumps({"status": bill.status}))
+        _record_audit(
+            session,
+            current_user.id,
+            "void",
+            before,
+            json.dumps({"status": bill.status}),
+        )
         session.add(bill)
         session.commit()
         return {"bill_id": bill.id, "status": bill.status}
 
+
 @app.post("/api/v1/imports/rooms", dependencies=[Depends(require_role("clerk"))])
-def api_import_rooms(file: UploadFile = File(...), background_tasks: BackgroundTasks = None, current_user: User = Depends(require_role("clerk"))):
+def api_import_rooms(
+    file: UploadFile = File(...),
+    background_tasks: BackgroundTasks = None,
+    current_user: User = Depends(require_role("clerk")),
+):
     # persist upload and create ImportBatch, then schedule background processing
     os.makedirs("./data/imports", exist_ok=True)
     filename = file.filename or f"rooms-{uuid.uuid4().hex}.csv"
@@ -197,7 +265,11 @@ def api_import_rooms(file: UploadFile = File(...), background_tasks: BackgroundT
 
 
 @app.post("/api/v1/imports/leases", dependencies=[Depends(require_role("clerk"))])
-def api_import_leases(file: UploadFile = File(...), background_tasks: BackgroundTasks = None, current_user: User = Depends(require_role("clerk"))):
+def api_import_leases(
+    file: UploadFile = File(...),
+    background_tasks: BackgroundTasks = None,
+    current_user: User = Depends(require_role("clerk")),
+):
     os.makedirs("./data/imports", exist_ok=True)
     filename = file.filename or f"leases-{uuid.uuid4().hex}.csv"
     with Session(engine) as session:
@@ -215,8 +287,12 @@ def api_import_leases(file: UploadFile = File(...), background_tasks: Background
     return {"batch_id": batch.id}
 
 
-@app.get("/api/v1/imports/batches/{batch_id}", dependencies=[Depends(require_role("clerk"))])
-def api_get_import_batch(batch_id: int, current_user: User = Depends(require_role("clerk"))):
+@app.get(
+    "/api/v1/imports/batches/{batch_id}", dependencies=[Depends(require_role("clerk"))]
+)
+def api_get_import_batch(
+    batch_id: int, current_user: User = Depends(require_role("clerk"))
+):
     with Session(engine) as session:
         b = session.get(ImportBatch, batch_id)
         if not b:
@@ -232,4 +308,3 @@ def api_get_import_batch(batch_id: int, current_user: User = Depends(require_rol
             "result": json.loads(b.result) if b.result else None,
             "errors": json.loads(b.errors) if b.errors else None,
         }
-
