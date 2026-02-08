@@ -130,7 +130,7 @@ class BillLine(SQLModel, table=True):
     unit_price: Decimal = Field(default=Decimal("0.0"))
     amount: Decimal = Field(default=Decimal("0.0"))
     # runtime code expects `charge_code`; add as nullable for compatibility
-    charge_code: Optional[str] = Field(default=None, sa_column=Column("charge_code", Text, nullable=True), index=True)
+    charge_code: Optional[str] = Field(default=None, sa_column=Column("charge_code", Text, nullable=True))
     bill: Optional[Bill] = Relationship(back_populates="lines")
 
 
