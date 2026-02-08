@@ -168,3 +168,15 @@ class AppConfig(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     key: str = Field(nullable=False, unique=True)
     value: Optional[str]
+
+    class ImportBatch(SQLModel, table=True):
+        __table_args__ = {"extend_existing": True}
+        id: Optional[int] = Field(default=None, primary_key=True)
+        filename: str
+        kind: str  # rooms | leases
+        status: str = Field(default="pending")  # pending, processing, done, failed
+        created_at: datetime = Field(default_factory=datetime.utcnow)
+        started_at: Optional[datetime] = None
+        finished_at: Optional[datetime] = None
+        result: Optional[str] = Field(default=None, sa_column=Column(Text))
+        errors: Optional[str] = Field(default=None, sa_column=Column(Text))
