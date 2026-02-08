@@ -6,6 +6,7 @@ from typing import Optional, List
 
 from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import UniqueConstraint, Column, Numeric, Text, DateTime, Integer
+from sqlalchemy.orm import Mapped
 from enum import Enum
 
 
@@ -22,7 +23,7 @@ class Company(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     code: str = Field(index=True, nullable=False)
     name: str
-    communities: List["Community"] = Relationship(back_populates="company")
+    communities: Mapped[List["Community"]] = Relationship(back_populates="company")
 
 
 class Community(SQLModel, table=True):
@@ -31,8 +32,8 @@ class Community(SQLModel, table=True):
     code: str = Field(nullable=False)
     name: str
     company_id: int = Field(foreign_key="company.id")
-    company: Optional[Company] = Relationship(back_populates="communities")
-    buildings: List["Building"] = Relationship(back_populates="community")
+    company: Mapped[Optional[Company]] = Relationship(back_populates="communities")
+    buildings: Mapped[List["Building"]] = Relationship(back_populates="community")
 
 
 class Building(SQLModel, table=True):
@@ -41,8 +42,8 @@ class Building(SQLModel, table=True):
     code: str = Field(nullable=False)
     name: Optional[str]
     community_id: int = Field(foreign_key="community.id")
-    community: Optional[Community] = Relationship(back_populates="buildings")
-    units: List["Unit"] = Relationship(back_populates="building")
+    community: Mapped[Optional[Community]] = Relationship(back_populates="buildings")
+    units: Mapped[List["Unit"]] = Relationship(back_populates="building")
 
 
 class Unit(SQLModel, table=True):
@@ -50,7 +51,7 @@ class Unit(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     unit_no: str = Field(nullable=False)
     building_id: int = Field(foreign_key="building.id")
-    building: Optional[Building] = Relationship(back_populates="units")
+    building: Mapped[Optional[Building]] = Relationship(back_populates="units")
 
 
 class Tenant(SQLModel, table=True):
@@ -58,7 +59,7 @@ class Tenant(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     mobile: Optional[str]
-    leases: List["Lease"] = Relationship(back_populates="tenant")
+    leases: Mapped[List["Lease"]] = Relationship(back_populates="tenant")
 
 
 class Lease(SQLModel, table=True):
@@ -70,7 +71,7 @@ class Lease(SQLModel, table=True):
     end_date: Optional[date]
     rent_amount: Decimal = Field(default=Decimal("0.0"), sa_column=Column("rent_amount", Numeric(18, 4), nullable=True))
     deposit_amount: Decimal = Field(default=Decimal("0.0"))
-    tenant: Optional[Tenant] = Relationship(back_populates="leases")
+    tenant: Mapped[Optional[Tenant]] = Relationship(back_populates="leases")
 
 
 class Meter(SQLModel, table=True):
@@ -118,7 +119,7 @@ class Bill(SQLModel, table=True):
     community_id: Optional[int] = Field(default=None, sa_column=Column("community_id", Integer, nullable=True))
     total_amount: Decimal = Field(default=Decimal("0.0"), sa_column=Column("total_amount", Numeric(18, 4), nullable=True))
     frozen_snapshot: Optional[str] = Field(default=None, sa_column=Column("frozen_snapshot", Text, nullable=True))
-    lines: List["BillLine"] = Relationship(back_populates="bill")
+    lines: Mapped[List["BillLine"]] = Relationship(back_populates="bill")
 
 
 class BillLine(SQLModel, table=True):
@@ -131,7 +132,7 @@ class BillLine(SQLModel, table=True):
     amount: Decimal = Field(default=Decimal("0.0"))
     # runtime code expects `charge_code`; add as nullable for compatibility
     charge_code: Optional[str] = Field(default=None, sa_column=Column("charge_code", Text, nullable=True))
-    bill: Optional[Bill] = Relationship(back_populates="lines")
+    bill: Mapped[Optional[Bill]] = Relationship(back_populates="lines")
 
 
 class Adjustment(SQLModel, table=True):
