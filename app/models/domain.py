@@ -68,7 +68,6 @@ class Lease(SQLModel, table=True):
     tenant_id: int = Field(foreign_key="tenant.id")
     start_date: date
     end_date: Optional[date]
-    from sqlalchemy import Numeric
     rent_amount: Decimal = Field(default=Decimal("0.0"), sa_column=Column("rent_amount", Numeric(18, 4), nullable=True))
     deposit_amount: Decimal = Field(default=Decimal("0.0"))
     tenant: Optional[Tenant] = Relationship(back_populates="leases")
