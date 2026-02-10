@@ -13,7 +13,12 @@ def fetch(run_id: str):
     out_dir = os.path.join(".git-output", f"ci_logs_{run_id}")
     os.makedirs(out_dir, exist_ok=True)
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "ci-log-fetcher"})
+        # prefer an explicitly provided read token to avoid 403 when downloading logs
+        token = os.environ.get("CI_READ_TOKEN") or os.environ.get("GITHUB_TOKEN")
+        headers = {"User-Agent": "ci-log-fetcher"}
+        if token:
+            headers["Authorization"] = f"token {token}"
+        req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = resp.read()
     except Exception as e:
