@@ -1,6 +1,6 @@
-from sqlmodel import SQLModel, create_engine
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
+from sqlmodel import SQLModel, create_engine
 
 # SQLite database file (named params enforced via SQLModel/SQLAlchemy usage)
 DATABASE_URL = "sqlite:///./data/app.db"

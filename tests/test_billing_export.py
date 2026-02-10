@@ -1,10 +1,20 @@
-from starlette.testclient import TestClient
 from sqlmodel import Session, select
+from starlette.testclient import TestClient
 
 from app.auth import get_password_hash
 from app.db import engine, init_db
 from app.main import app
-from app.models import Company, Community, Building, Unit, Tenant, Lease, User, Bill, BillLine
+from app.models import (
+    Bill,
+    BillLine,
+    Building,
+    Community,
+    Company,
+    Lease,
+    Tenant,
+    Unit,
+    User,
+)
 
 
 def setup_module(module):
@@ -16,7 +26,9 @@ def make_user(username, password, role):
         existing = session.exec(select(User).where(User.username == username)).first()
         if existing:
             return existing
-        u = User(username=username, password_hash=get_password_hash(password), role=role)
+        u = User(
+            username=username, password_hash=get_password_hash(password), role=role
+        )
         session.add(u)
         session.commit()
         return u
@@ -33,20 +45,28 @@ def create_sample_unit_and_lease():
             session.flush()
 
         comm = session.exec(
-            select(Community).where(Community.code == "CM1", Community.company_id == company.id)
+            select(Community).where(
+                Community.code == "CM1", Community.company_id == company.id
+            )
         ).first()
         if not comm:
             comm = Community(company_id=company.id, code="CM1", name="Comm1")
             session.add(comm)
             session.flush()
 
-        b = session.exec(select(Building).where(Building.code == "B1", Building.community_id == comm.id)).first()
+        b = session.exec(
+            select(Building).where(
+                Building.code == "B1", Building.community_id == comm.id
+            )
+        ).first()
         if not b:
             b = Building(community_id=comm.id, code="B1", name="B1")
             session.add(b)
             session.flush()
 
-        u = session.exec(select(Unit).where(Unit.unit_no == "101", Unit.building_id == b.id)).first()
+        u = session.exec(
+            select(Unit).where(Unit.unit_no == "101", Unit.building_id == b.id)
+        ).first()
         if not u:
             u = Unit(building_id=b.id, unit_no="101")
             session.add(u)
@@ -103,7 +123,11 @@ def test_export_bill_csv():
     bill_id = r.json()["bill_id"]
 
     # export CSV
-    r = client.get(f"/api/v1/bills/{bill_id}/export", params={"export": "csv"}, headers={"Authorization": f"Bearer {clerk_token}"})
+    r = client.get(
+        f"/api/v1/bills/{bill_id}/export",
+        params={"export": "csv"},
+        headers={"Authorization": f"Bearer {clerk_token}"},
+    )
     assert r.status_code == 200
     assert r.headers.get("content-disposition") is not None
     text = r.content.decode("utf-8")

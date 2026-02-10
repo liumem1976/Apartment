@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from datetime import datetime, date
+from datetime import date, datetime
 from decimal import Decimal
-from typing import Optional, List
-
-from sqlmodel import SQLModel, Field, Relationship
-from sqlalchemy import UniqueConstraint, Column, Numeric, Text, DateTime, Integer
-from sqlalchemy.orm import Mapped
 from enum import Enum
+from typing import List, Optional
+
+from sqlalchemy import Column, Integer, Numeric, Text, UniqueConstraint
+from sqlalchemy.orm import relationship as sa_relationship
+from sqlmodel import Field, Relationship, SQLModel
 
 
 class BillStatus(str, Enum):
@@ -19,63 +19,84 @@ class BillStatus(str, Enum):
 
 
 class Company(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     code: str = Field(index=True, nullable=False)
     name: str
-    communities: Mapped[List["Community"]] = Relationship(back_populates="company")
+    communities: List["Community"] = Relationship(
+        back_populates="company",
+        sa_relationship=sa_relationship("Community", back_populates="company"),
+    )
 
 
 class Community(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     code: str = Field(nullable=False)
     name: str
     company_id: int = Field(foreign_key="company.id")
-    company: Mapped[Optional[Company]] = Relationship(back_populates="communities")
-    buildings: Mapped[List["Building"]] = Relationship(back_populates="community")
+    company: Optional["Company"] = Relationship(
+        back_populates="communities",
+        sa_relationship=sa_relationship("Company", back_populates="communities"),
+    )
+    buildings: List["Building"] = Relationship(
+        back_populates="community",
+        sa_relationship=sa_relationship("Building", back_populates="community"),
+    )
 
 
 class Building(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     code: str = Field(nullable=False)
     name: Optional[str]
     community_id: int = Field(foreign_key="community.id")
-    community: Mapped[Optional[Community]] = Relationship(back_populates="buildings")
-    units: Mapped[List["Unit"]] = Relationship(back_populates="building")
+    community: Optional["Community"] = Relationship(
+        back_populates="buildings",
+        sa_relationship=sa_relationship("Community", back_populates="buildings"),
+    )
+    units: List["Unit"] = Relationship(
+        back_populates="building",
+        sa_relationship=sa_relationship("Unit", back_populates="building"),
+    )
 
 
 class Unit(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     unit_no: str = Field(nullable=False)
+    remark: Optional[str] = Field(default=None)
     building_id: int = Field(foreign_key="building.id")
-    building: Mapped[Optional[Building]] = Relationship(back_populates="units")
+    building: Optional["Building"] = Relationship(
+        back_populates="units",
+        sa_relationship=sa_relationship("Building", back_populates="units"),
+    )
 
 
 class Tenant(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     mobile: Optional[str]
-    leases: Mapped[List["Lease"]] = Relationship(back_populates="tenant")
+    leases: List["Lease"] = Relationship(
+        back_populates="tenant",
+        sa_relationship=sa_relationship("Lease", back_populates="tenant"),
+    )
 
 
 class Lease(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     unit_id: int = Field(foreign_key="unit.id")
     tenant_id: int = Field(foreign_key="tenant.id")
     start_date: date
     end_date: Optional[date]
-    rent_amount: Decimal = Field(default=Decimal("0.0"), sa_column=Column("rent_amount", Numeric(18, 4), nullable=True))
+    rent_amount: Decimal = Field(
+        default=Decimal("0.0"),
+        sa_column=Column("rent_amount", Numeric(18, 4), nullable=True),
+    )
     deposit_amount: Decimal = Field(default=Decimal("0.0"))
-    tenant: Mapped[Optional[Tenant]] = Relationship(back_populates="leases")
+    tenant: Optional["Tenant"] = Relationship(
+        back_populates="leases",
+        sa_relationship=sa_relationship("Tenant", back_populates="leases"),
+    )
 
 
 class Meter(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     unit_id: int = Field(foreign_key="unit.id")
     kind: str = Field(nullable=False)  # cold_water/hot_water
@@ -83,7 +104,6 @@ class Meter(SQLModel, table=True):
 
 
 class MeterReading(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     meter_id: int = Field(foreign_key="meter.id")
     period: str = Field(nullable=False, index=True)
@@ -92,7 +112,6 @@ class MeterReading(SQLModel, table=True):
 
 
 class TariffWater(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     company_id: Optional[int] = Field(default=None, foreign_key="company.id")
     community_id: Optional[int] = Field(default=None, foreign_key="community.id")
@@ -101,29 +120,42 @@ class TariffWater(SQLModel, table=True):
 
 
 class ChargeItem(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     code: str = Field(nullable=False, unique=True)
     description: Optional[str]
 
 
 class Bill(SQLModel, table=True):
-    __table_args__ = (UniqueConstraint("unit_id", "cycle_start", name="uq_bill_unit_cycle"), {"extend_existing": True})
+    __table_args__ = (
+        UniqueConstraint("unit_id", "cycle_start", name="uq_bill_unit_cycle"),
+    )
     id: Optional[int] = Field(default=None, primary_key=True)
     unit_id: int = Field(foreign_key="unit.id")
     cycle_start: date
     cycle_end: date
     status: BillStatus = Field(sa_column=Column("status", Text, nullable=False))
     # alignment fields expected by runtime code (nullable to avoid breaking existing rows)
-    company_id: Optional[int] = Field(default=None, sa_column=Column("company_id", Integer, nullable=True))
-    community_id: Optional[int] = Field(default=None, sa_column=Column("community_id", Integer, nullable=True))
-    total_amount: Decimal = Field(default=Decimal("0.0"), sa_column=Column("total_amount", Numeric(18, 4), nullable=True))
-    frozen_snapshot: Optional[str] = Field(default=None, sa_column=Column("frozen_snapshot", Text, nullable=True))
-    lines: Mapped[List["BillLine"]] = Relationship(back_populates="bill")
+    company_id: Optional[int] = Field(
+        default=None, sa_column=Column("company_id", Integer, nullable=True)
+    )
+    community_id: Optional[int] = Field(
+        default=None, sa_column=Column("community_id", Integer, nullable=True)
+    )
+    total_amount: Decimal = Field(
+        default=Decimal("0.0"),
+        sa_column=Column("total_amount", Numeric(18, 4), nullable=True),
+    )
+    frozen_snapshot: Optional[str] = Field(
+        default=None, sa_column=Column("frozen_snapshot", Text, nullable=True)
+    )
+    lines: List["BillLine"] = Relationship(
+        back_populates="bill",
+        sa_relationship=sa_relationship("BillLine", back_populates="bill"),
+    )
 
 
 class BillLine(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
+
     id: Optional[int] = Field(default=None, primary_key=True)
     bill_id: int = Field(foreign_key="bill.id")
     item_code: str = Field(nullable=False)
@@ -131,12 +163,16 @@ class BillLine(SQLModel, table=True):
     unit_price: Decimal = Field(default=Decimal("0.0"))
     amount: Decimal = Field(default=Decimal("0.0"))
     # runtime code expects `charge_code`; add as nullable for compatibility
-    charge_code: Optional[str] = Field(default=None, sa_column=Column("charge_code", Text, nullable=True))
-    bill: Mapped[Optional[Bill]] = Relationship(back_populates="lines")
+    charge_code: Optional[str] = Field(
+        default=None, sa_column=Column("charge_code", Text, nullable=True)
+    )
+    bill: Optional["Bill"] = Relationship(
+        back_populates="lines",
+        sa_relationship=sa_relationship("Bill", back_populates="lines"),
+    )
 
 
 class Adjustment(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     bill_line_id: Optional[int] = Field(default=None, foreign_key="billline.id")
     delta: Decimal = Field(default=Decimal("0.0"))
@@ -144,7 +180,6 @@ class Adjustment(SQLModel, table=True):
 
 
 class User(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str = Field(nullable=False, unique=True)
     password_hash: str
@@ -152,9 +187,10 @@ class User(SQLModel, table=True):
 
 
 class AuditLog(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
-    table_name: str
+    # default to empty string so existing DB schemas with NOT NULL
+    # constraints still accept inserts from older code paths
+    table_name: str = Field(default="")
     row_id: Optional[int]
     before: Optional[str]
     after: Optional[str]
@@ -165,14 +201,12 @@ class AuditLog(SQLModel, table=True):
 
 
 class AppConfig(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     key: str = Field(nullable=False, unique=True)
     value: Optional[str]
 
 
 class ImportBatch(SQLModel, table=True):
-    __table_args__ = {"extend_existing": True}
     id: Optional[int] = Field(default=None, primary_key=True)
     filename: str
     kind: str  # rooms | leases

@@ -4,15 +4,13 @@ Revision ID: 0003_merge_heads
 Revises: 0001_add_payment,0002_add_bill_fields,0002_add_unit_remark
 Create Date: 2026-02-08 08:00:00.000000
 """
-from alembic import op
-
 
 # revision identifiers, used by Alembic.
-revision = '0003_merge_heads'
+revision = "0003_merge_heads"
 down_revision = (
-    '0001_add_payment',
-    '0002_add_bill_fields',
-    '0002_add_unit_remark',
+    "0001_add_payment",
+    "0002_add_bill_fields",
+    "0002_add_unit_remark",
 )
 branch_labels = None
 depends_on = None
