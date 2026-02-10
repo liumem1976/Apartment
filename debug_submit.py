@@ -23,7 +23,7 @@ res = client.post("/api/auth/token", data={"username": "clerk1", "password": "cp
 print("token", res.status_code, res.text)
 token = res.json().get("access_token")
 
-from app.models import Unit
+from app.models import Unit  # noqa: E402
 
 with Session(engine) as s:
     unit = s.exec(select(Unit)).first()

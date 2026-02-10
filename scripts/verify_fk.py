@@ -1,4 +1,5 @@
 import re
+import sys
 from pathlib import Path
 
 p = Path("app/models/domain.py")
@@ -41,6 +42,5 @@ else:
         print(raw, "left not matching any class tables")
 
 # exit code
-import sys
 
 sys.exit(0 if not errors else 2)

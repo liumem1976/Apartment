@@ -24,10 +24,10 @@ except Exception:
     pass
 
 # add your model's MetaData object here
-import sys
+import sys  # noqa: E402
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from app.models import *  # noqa: F401,F403
+from app.models import *  # noqa: F401,F403,E402
 
 target_metadata = SQLModel.metadata
 

@@ -172,15 +172,15 @@ def api_bill_approve(
         # freeze snapshot of lines
         lines = session.exec(select(BillLine).where(BillLine.bill_id == bill.id)).all()
         snapshot = []
-        for l in lines:
+        for ln in lines:
             snapshot.append(
                 {
-                    "charge_code": l.charge_code,
-                    "qty": str(l.qty) if l.qty is not None else None,
+                    "charge_code": ln.charge_code,
+                    "qty": str(ln.qty) if ln.qty is not None else None,
                     "unit_price": (
-                        str(l.unit_price) if l.unit_price is not None else None
+                        str(ln.unit_price) if ln.unit_price is not None else None
                     ),
-                    "amount": str(l.amount),
+                    "amount": str(ln.amount),
                 }
             )
         before = json.dumps({"status": bill.status})
@@ -319,12 +319,12 @@ async def api_payments(
     try:
         content_type = request.headers.get("content-type", "")
         if content_type.startswith("application/json"):
-            data = await request.json()
+            await request.json()
         else:
             form = await request.form()
-            data = dict(form)
+            _ = dict(form)
     except Exception:
-        data = {}
+        pass
 
     # generate a simple id (not persisted) and return
     import uuid
@@ -362,14 +362,14 @@ def api_export_bill(
         buf, fieldnames=["item_code", "charge_code", "qty", "unit_price", "amount"]
     )
     writer.writeheader()
-    for l in lines:
+    for ln in lines:
         writer.writerow(
             {
-                "item_code": l.item_code or "",
-                "charge_code": l.charge_code or "",
-                "qty": str(l.qty) if l.qty is not None else "",
-                "unit_price": str(l.unit_price) if l.unit_price is not None else "",
-                "amount": str(l.amount) if l.amount is not None else "",
+                "item_code": ln.item_code or "",
+                "charge_code": ln.charge_code or "",
+                "qty": str(ln.qty) if ln.qty is not None else "",
+                "unit_price": str(ln.unit_price) if ln.unit_price is not None else "",
+                "amount": str(ln.amount) if ln.amount is not None else "",
             }
         )
 
