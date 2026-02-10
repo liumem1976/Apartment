@@ -1,6 +1,6 @@
+from pathlib import Path
 import re
 import sys
-from pathlib import Path
 
 p = Path("app/models/domain.py")
 s = p.read_text(encoding="utf-8")

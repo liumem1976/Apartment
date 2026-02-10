@@ -1,6 +1,6 @@
+from pathlib import Path
 import subprocess
 import sys
-from pathlib import Path
 
 out_dir = Path(".git-output")
 out_dir.mkdir(exist_ok=True)

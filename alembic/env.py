@@ -1,10 +1,9 @@
-import os
 from logging.config import fileConfig
-
-from sqlalchemy import create_engine, engine_from_config, pool
-from sqlmodel import SQLModel
+import os
 
 from alembic import context
+from sqlalchemy import create_engine, engine_from_config, pool
+from sqlmodel import SQLModel
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

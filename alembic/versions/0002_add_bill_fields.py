@@ -5,9 +5,8 @@ Revises: 0001_create_core_tables
 Create Date: 2026-02-08 00:00:00.000000
 """
 
-import sqlalchemy as sa
-
 from alembic import op
+import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = "0002_add_bill_fields"
