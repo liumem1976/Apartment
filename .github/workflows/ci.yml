@@ -15,6 +15,7 @@ jobs:
         python-version: [3.11]
     env:
       DATABASE_URL: sqlite:///./data/app.db
+      PYTHONPATH: ${{ github.workspace }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
