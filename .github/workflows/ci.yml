@@ -33,7 +33,7 @@ jobs:
           python -m pip install ruff isort black
 
       - name: Run ruff
-        run: ruff .
+        run: ruff check .
 
       - name: Run isort check
         run: isort . --check-only
