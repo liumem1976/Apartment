@@ -1,2 +1,3 @@
 from app.main import app
-print([r.path for r in app.routes if hasattr(r, 'path')])
+
+print([r.path for r in app.routes if hasattr(r, "path")])

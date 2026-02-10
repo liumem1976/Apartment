@@ -1,0 +1,35 @@
+name: Fetch CI Logs
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'The Actions run id to fetch logs for'
+        required: true
+
+jobs:
+  fetch-logs:
+    runs-on: ubuntu-latest
+    env:
+      CI_READ_TOKEN: ${{ secrets.CI_READ_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install minimal deps
+        run: python -m pip install --upgrade pip
+
+      - name: Run fetch_ci_logs
+        run: |
+          python scripts/fetch_ci_logs.py ${{ inputs.run_id }}
+
+      - name: Upload extracted logs (if any)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-logs-${{ inputs.run_id }}
+          path: .git-output/ci_logs_${{ inputs.run_id }}

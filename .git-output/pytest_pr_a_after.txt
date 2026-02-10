@@ -1,0 +1,790 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- d:\apartment\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: d:\apartment
+plugins: anyio-4.12.1
+collecting ... collected 9 items
+
+tests/test_auth.py::test_create_and_login_user FAILED                    [ 11%]
+tests/test_auth.py::test_generate_bill_requires_auth PASSED              [ 22%]
+tests/test_billing_export.py::test_export_bill_csv FAILED                [ 33%]
+tests/test_billing_state.py::test_full_bill_lifecycle FAILED             [ 44%]
+tests/test_health.py::test_health PASSED                                 [ 55%]
+tests/test_imports.py::test_rooms_import_idempotent FAILED               [ 66%]
+tests/test_imports.py::test_leases_import_rollback_on_overlap FAILED     [ 77%]
+tests/test_models.py::test_create_and_bind_models[sqlite:///:memory:] FAILED [ 88%]
+tests/test_payments_api.py::test_payments_api_json_and_form FAILED       [100%]
+
+================================== FAILURES ===================================
+_________________________ test_create_and_login_user __________________________
+
+self = <sqlalchemy.orm.clsregistry._class_resolver object at 0x000001C1F20617E0>
+
+    def _resolve_name(self) -> Union[Table, Type[Any], _ModNS]:
+        name = self.arg
+        d = self._dict
+        rval = None
+        try:
+            for token in name.split("."):
+                if rval is None:
+>                   rval = d[token]
+                           ^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py:516: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\util\_collections.py:345: in __missing__
+    self[key] = val = self.creator(key)
+                      ^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.orm.clsregistry._class_resolver object at 0x000001C1F20617E0>
+key = "Mapped[List['Community']]"
+
+    def _access_cls(self, key: str) -> Any:
+        cls = self.cls
+    
+        manager = attributes.manager_of_class(cls)
+        decl_base = manager.registry
+        assert decl_base is not None
+        decl_class_registry = decl_base._class_registry
+        metadata = decl_base.metadata
+    
+        if self.favor_tables:
+            if key in metadata.tables:
+                return metadata.tables[key]
+            elif key in metadata._schemas:
+                return _GetTable(key, getattr(cls, "metadata", metadata))
+    
+        if key in decl_class_registry:
+            return _determine_container(key, decl_class_registry[key])
+    
+        if not self.favor_tables:
+            if key in metadata.tables:
+                return metadata.tables[key]
+            elif key in metadata._schemas:
+                return _GetTable(key, getattr(cls, "metadata", metadata))
+    
+        if "_sa_module_registry" in decl_class_registry and key in cast(
+            _ModuleMarker, decl_class_registry["_sa_module_registry"]
+        ):
+            registry = cast(
+                _ModuleMarker, decl_class_registry["_sa_module_registry"]
+            )
+            return registry.resolve_attr(key)
+        elif self._resolvers:
+            for resolv in self._resolvers:
+                value = resolv(key)
+                if value is not None:
+                    return value
+    
+>       return self.fallback[key]
+               ^^^^^^^^^^^^^^^^^^
+E       KeyError: "Mapped[List['Community']]"
+
+.venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py:484: KeyError
+
+The above exception was the direct cause of the following exception:
+
+    def test_create_and_login_user():
+        client = TestClient(app)
+        # insert user directly
+        with Session(engine) as session:
+>           existing = session.exec(select(User).where(User.username == "tuser")).first()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_auth.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlmodel\orm\session.py:81: in exec
+    results = super().execute(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2351: in execute
+    return self._execute_internal(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:306: in orm_execute_statement
+    result = conn.execute(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1419: in execute
+    return meth(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1633: in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:716: in _compile_w_cache
+    compiled_sql = self._compiler(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:324: in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:1448: in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:888: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:934: in process
+    return obj._compiler_dispatch(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\visitors.py:138: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+           ^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:4783: in visit_select
+    compile_state = select_stmt._compile_state_factory(
+.venv\Lib\site-packages\sqlalchemy\sql\base.py:701: in create_for_statement
+    return klass.create_for_statement(statement, compiler, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:447: in create_for_statement
+    return cls._create_orm_context(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:1175: in _create_orm_context
+    _QueryEntity.to_compile_state(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2628: in to_compile_state
+    _MapperEntity(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2708: in __init__
+    entity._post_inspect
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:1338: in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2733: in _post_inspect
+    self._check_configure()
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2410: in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4227: in _configure_registries
+    _do_configure_registries(registries, cascade)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4268: in _do_configure_registries
+    mapper._post_configure_properties()
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2427: in _post_configure_properties
+    prop.init()
+.venv\Lib\site-packages\sqlalchemy\orm\interfaces.py:595: in init
+    self.do_init()
+.venv\Lib\site-packages\sqlalchemy\orm\relationships.py:1655: in do_init
+    self._setup_entity()
+.venv\Lib\site-packages\sqlalchemy\orm\relationships.py:1865: in _setup_entity
+    self._clsregistry_resolve_name(argument)(),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py:520: in _resolve_name
+    self._raise_for_name(name, err)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.orm.clsregistry._class_resolver object at 0x000001C1F20617E0>
+name = "Mapped[List['Community']]", err = KeyError("Mapped[List['Community']]")
+
+    def _raise_for_name(self, name: str, err: Exception) -> NoReturn:
+        generic_match = re.match(r"(.+)\[(.+)\]", name)
+    
+        if generic_match:
+            clsarg = generic_match.group(2).strip("'")
+>           raise exc.InvalidRequestError(
+                f"When initializing mapper {self.prop.parent}, "
+                f'expression "relationship({self.arg!r})" seems to be '
+                "using a generic class as the argument to relationship(); "
+                "please state the generic argument "
+                "using an annotation, e.g. "
+                f'"{self.prop.key}: Mapped[{generic_match.group(1)}'
+                f"['{clsarg}']] = relationship()\""
+            ) from err
+E           sqlalchemy.exc.InvalidRequestError: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+
+.venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py:491: InvalidRequestError
+____________________________ test_export_bill_csv _____________________________
+
+    def test_export_bill_csv():
+        client = TestClient(app)
+>       make_user("clerk2", "cpass", "clerk")
+
+tests\test_billing_export.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_billing_export.py:16: in make_user
+    existing = session.exec(select(User).where(User.username == username)).first()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlmodel\orm\session.py:81: in exec
+    results = super().execute(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2351: in execute
+    return self._execute_internal(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:306: in orm_execute_statement
+    result = conn.execute(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1419: in execute
+    return meth(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1633: in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:716: in _compile_w_cache
+    compiled_sql = self._compiler(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:324: in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:1448: in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:888: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:934: in process
+    return obj._compiler_dispatch(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\visitors.py:138: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+           ^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:4783: in visit_select
+    compile_state = select_stmt._compile_state_factory(
+.venv\Lib\site-packages\sqlalchemy\sql\base.py:701: in create_for_statement
+    return klass.create_for_statement(statement, compiler, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:447: in create_for_statement
+    return cls._create_orm_context(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:1175: in _create_orm_context
+    _QueryEntity.to_compile_state(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2628: in to_compile_state
+    _MapperEntity(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2708: in __init__
+    entity._post_inspect
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:1338: in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2733: in _post_inspect
+    self._check_configure()
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2410: in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4227: in _configure_registries
+    _do_configure_registries(registries, cascade)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registries = set(), cascade = True
+
+    @util.preload_module("sqlalchemy.orm.decl_api")
+    def _do_configure_registries(
+        registries: Set[_RegistryType], cascade: bool
+    ) -> None:
+        registry = util.preloaded.orm_decl_api.registry
+    
+        orig = set(registries)
+    
+        for reg in registry._recurse_with_dependencies(registries):
+            has_skip = False
+    
+            for mapper in reg._mappers_to_configure():
+                run_configure = None
+    
+                for fn in mapper.dispatch.before_mapper_configured:
+                    run_configure = fn(mapper, mapper.class_)
+                    if run_configure is EXT_SKIP:
+                        has_skip = True
+                        break
+                if run_configure is EXT_SKIP:
+                    continue
+    
+                if getattr(mapper, "_configure_failed", False):
+                    e = sa_exc.InvalidRequestError(
+                        "One or more mappers failed to initialize - "
+                        "can't proceed with initialization of other "
+                        "mappers. Triggering mapper: '%s'. "
+                        "Original exception was: %s"
+                        % (mapper, mapper._configure_failed)
+                    )
+                    e._configure_failed = mapper._configure_failed  # type: ignore
+>                   raise e
+E                   sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4264: InvalidRequestError
+__________________________ test_full_bill_lifecycle ___________________________
+
+    def test_full_bill_lifecycle():
+        client = TestClient(app)
+>       clerk = make_user("clerk1", "cpass", "clerk")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_billing_state.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_billing_state.py:15: in make_user
+    existing = session.exec(select(User).where(User.username == username)).first()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlmodel\orm\session.py:81: in exec
+    results = super().execute(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2351: in execute
+    return self._execute_internal(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:306: in orm_execute_statement
+    result = conn.execute(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1419: in execute
+    return meth(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1633: in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:716: in _compile_w_cache
+    compiled_sql = self._compiler(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:324: in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:1448: in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:888: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:934: in process
+    return obj._compiler_dispatch(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\visitors.py:138: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+           ^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:4783: in visit_select
+    compile_state = select_stmt._compile_state_factory(
+.venv\Lib\site-packages\sqlalchemy\sql\base.py:701: in create_for_statement
+    return klass.create_for_statement(statement, compiler, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:447: in create_for_statement
+    return cls._create_orm_context(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:1175: in _create_orm_context
+    _QueryEntity.to_compile_state(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2628: in to_compile_state
+    _MapperEntity(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2708: in __init__
+    entity._post_inspect
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:1338: in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2733: in _post_inspect
+    self._check_configure()
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2410: in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4227: in _configure_registries
+    _do_configure_registries(registries, cascade)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registries = set(), cascade = True
+
+    @util.preload_module("sqlalchemy.orm.decl_api")
+    def _do_configure_registries(
+        registries: Set[_RegistryType], cascade: bool
+    ) -> None:
+        registry = util.preloaded.orm_decl_api.registry
+    
+        orig = set(registries)
+    
+        for reg in registry._recurse_with_dependencies(registries):
+            has_skip = False
+    
+            for mapper in reg._mappers_to_configure():
+                run_configure = None
+    
+                for fn in mapper.dispatch.before_mapper_configured:
+                    run_configure = fn(mapper, mapper.class_)
+                    if run_configure is EXT_SKIP:
+                        has_skip = True
+                        break
+                if run_configure is EXT_SKIP:
+                    continue
+    
+                if getattr(mapper, "_configure_failed", False):
+                    e = sa_exc.InvalidRequestError(
+                        "One or more mappers failed to initialize - "
+                        "can't proceed with initialization of other "
+                        "mappers. Triggering mapper: '%s'. "
+                        "Original exception was: %s"
+                        % (mapper, mapper._configure_failed)
+                    )
+                    e._configure_failed = mapper._configure_failed  # type: ignore
+>                   raise e
+E                   sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4264: InvalidRequestError
+________________________ test_rooms_import_idempotent _________________________
+
+    def test_rooms_import_idempotent():
+        client = TestClient(app)
+>       make_user("clerkx", "pass", "clerk")
+
+tests\test_imports.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_imports.py:16: in make_user
+    existing = session.exec(select(User).where(User.username == username)).first()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlmodel\orm\session.py:81: in exec
+    results = super().execute(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2351: in execute
+    return self._execute_internal(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:306: in orm_execute_statement
+    result = conn.execute(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1419: in execute
+    return meth(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1633: in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:716: in _compile_w_cache
+    compiled_sql = self._compiler(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:324: in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:1448: in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:888: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:934: in process
+    return obj._compiler_dispatch(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\visitors.py:138: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+           ^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:4783: in visit_select
+    compile_state = select_stmt._compile_state_factory(
+.venv\Lib\site-packages\sqlalchemy\sql\base.py:701: in create_for_statement
+    return klass.create_for_statement(statement, compiler, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:447: in create_for_statement
+    return cls._create_orm_context(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:1175: in _create_orm_context
+    _QueryEntity.to_compile_state(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2628: in to_compile_state
+    _MapperEntity(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2708: in __init__
+    entity._post_inspect
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:1338: in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2733: in _post_inspect
+    self._check_configure()
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2410: in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4227: in _configure_registries
+    _do_configure_registries(registries, cascade)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registries = set(), cascade = True
+
+    @util.preload_module("sqlalchemy.orm.decl_api")
+    def _do_configure_registries(
+        registries: Set[_RegistryType], cascade: bool
+    ) -> None:
+        registry = util.preloaded.orm_decl_api.registry
+    
+        orig = set(registries)
+    
+        for reg in registry._recurse_with_dependencies(registries):
+            has_skip = False
+    
+            for mapper in reg._mappers_to_configure():
+                run_configure = None
+    
+                for fn in mapper.dispatch.before_mapper_configured:
+                    run_configure = fn(mapper, mapper.class_)
+                    if run_configure is EXT_SKIP:
+                        has_skip = True
+                        break
+                if run_configure is EXT_SKIP:
+                    continue
+    
+                if getattr(mapper, "_configure_failed", False):
+                    e = sa_exc.InvalidRequestError(
+                        "One or more mappers failed to initialize - "
+                        "can't proceed with initialization of other "
+                        "mappers. Triggering mapper: '%s'. "
+                        "Original exception was: %s"
+                        % (mapper, mapper._configure_failed)
+                    )
+                    e._configure_failed = mapper._configure_failed  # type: ignore
+>                   raise e
+E                   sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4264: InvalidRequestError
+___________________ test_leases_import_rollback_on_overlap ____________________
+
+    def test_leases_import_rollback_on_overlap():
+        client = TestClient(app)
+>       make_user("clerkl", "pass", "clerk")
+
+tests\test_imports.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_imports.py:16: in make_user
+    existing = session.exec(select(User).where(User.username == username)).first()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlmodel\orm\session.py:81: in exec
+    results = super().execute(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2351: in execute
+    return self._execute_internal(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:306: in orm_execute_statement
+    result = conn.execute(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1419: in execute
+    return meth(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1633: in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:716: in _compile_w_cache
+    compiled_sql = self._compiler(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:324: in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:1448: in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:888: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:934: in process
+    return obj._compiler_dispatch(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\visitors.py:138: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+           ^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:4783: in visit_select
+    compile_state = select_stmt._compile_state_factory(
+.venv\Lib\site-packages\sqlalchemy\sql\base.py:701: in create_for_statement
+    return klass.create_for_statement(statement, compiler, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:447: in create_for_statement
+    return cls._create_orm_context(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:1175: in _create_orm_context
+    _QueryEntity.to_compile_state(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2628: in to_compile_state
+    _MapperEntity(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2708: in __init__
+    entity._post_inspect
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:1338: in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2733: in _post_inspect
+    self._check_configure()
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2410: in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4227: in _configure_registries
+    _do_configure_registries(registries, cascade)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registries = set(), cascade = True
+
+    @util.preload_module("sqlalchemy.orm.decl_api")
+    def _do_configure_registries(
+        registries: Set[_RegistryType], cascade: bool
+    ) -> None:
+        registry = util.preloaded.orm_decl_api.registry
+    
+        orig = set(registries)
+    
+        for reg in registry._recurse_with_dependencies(registries):
+            has_skip = False
+    
+            for mapper in reg._mappers_to_configure():
+                run_configure = None
+    
+                for fn in mapper.dispatch.before_mapper_configured:
+                    run_configure = fn(mapper, mapper.class_)
+                    if run_configure is EXT_SKIP:
+                        has_skip = True
+                        break
+                if run_configure is EXT_SKIP:
+                    continue
+    
+                if getattr(mapper, "_configure_failed", False):
+                    e = sa_exc.InvalidRequestError(
+                        "One or more mappers failed to initialize - "
+                        "can't proceed with initialization of other "
+                        "mappers. Triggering mapper: '%s'. "
+                        "Original exception was: %s"
+                        % (mapper, mapper._configure_failed)
+                    )
+                    e._configure_failed = mapper._configure_failed  # type: ignore
+>                   raise e
+E                   sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4264: InvalidRequestError
+_______________ test_create_and_bind_models[sqlite:///:memory:] _______________
+
+url = 'sqlite:///:memory:'
+
+    @pytest.mark.parametrize("url", ["sqlite:///:memory:"])
+    def test_create_and_bind_models(url):
+        engine = create_engine(url, connect_args={"check_same_thread": False})
+        SQLModel.metadata.create_all(engine)
+    
+        with Session(engine) as session:
+>           c = Company(code="C1", name="TestCo")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_models.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+<string>:4: in __init__
+    ???
+.venv\Lib\site-packages\sqlalchemy\orm\state.py:591: in _initialize_instance
+    manager.dispatch.init(self, args, kwargs)
+.venv\Lib\site-packages\sqlalchemy\event\attr.py:515: in __call__
+    fn(*args, **kw)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4419: in _event_on_init
+    instrumenting_mapper._check_configure()
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2410: in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4227: in _configure_registries
+    _do_configure_registries(registries, cascade)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registries = set(), cascade = True
+
+    @util.preload_module("sqlalchemy.orm.decl_api")
+    def _do_configure_registries(
+        registries: Set[_RegistryType], cascade: bool
+    ) -> None:
+        registry = util.preloaded.orm_decl_api.registry
+    
+        orig = set(registries)
+    
+        for reg in registry._recurse_with_dependencies(registries):
+            has_skip = False
+    
+            for mapper in reg._mappers_to_configure():
+                run_configure = None
+    
+                for fn in mapper.dispatch.before_mapper_configured:
+                    run_configure = fn(mapper, mapper.class_)
+                    if run_configure is EXT_SKIP:
+                        has_skip = True
+                        break
+                if run_configure is EXT_SKIP:
+                    continue
+    
+                if getattr(mapper, "_configure_failed", False):
+                    e = sa_exc.InvalidRequestError(
+                        "One or more mappers failed to initialize - "
+                        "can't proceed with initialization of other "
+                        "mappers. Triggering mapper: '%s'. "
+                        "Original exception was: %s"
+                        % (mapper, mapper._configure_failed)
+                    )
+                    e._configure_failed = mapper._configure_failed  # type: ignore
+>                   raise e
+E                   sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4264: InvalidRequestError
+_______________________ test_payments_api_json_and_form _______________________
+
+    def test_payments_api_json_and_form():
+        client = TestClient(app)
+        # create users
+>       make_user("clerk1", "cpass", "clerk")
+
+tests\test_payments_api.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_payments_api.py:19: in make_user
+    existing = s.exec(select(User).where(User.username == username)).first()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlmodel\orm\session.py:81: in exec
+    results = super().execute(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2351: in execute
+    return self._execute_internal(
+.venv\Lib\site-packages\sqlalchemy\orm\session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:306: in orm_execute_statement
+    result = conn.execute(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1419: in execute
+    return meth(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:1633: in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:716: in _compile_w_cache
+    compiled_sql = self._compiler(
+.venv\Lib\site-packages\sqlalchemy\sql\elements.py:324: in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:1448: in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:888: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:934: in process
+    return obj._compiler_dispatch(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\visitors.py:138: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+           ^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\sql\compiler.py:4783: in visit_select
+    compile_state = select_stmt._compile_state_factory(
+.venv\Lib\site-packages\sqlalchemy\sql\base.py:701: in create_for_statement
+    return klass.create_for_statement(statement, compiler, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:447: in create_for_statement
+    return cls._create_orm_context(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:1175: in _create_orm_context
+    _QueryEntity.to_compile_state(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2628: in to_compile_state
+    _MapperEntity(
+.venv\Lib\site-packages\sqlalchemy\orm\context.py:2708: in __init__
+    entity._post_inspect
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:1338: in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2733: in _post_inspect
+    self._check_configure()
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:2410: in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4227: in _configure_registries
+    _do_configure_registries(registries, cascade)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registries = set(), cascade = True
+
+    @util.preload_module("sqlalchemy.orm.decl_api")
+    def _do_configure_registries(
+        registries: Set[_RegistryType], cascade: bool
+    ) -> None:
+        registry = util.preloaded.orm_decl_api.registry
+    
+        orig = set(registries)
+    
+        for reg in registry._recurse_with_dependencies(registries):
+            has_skip = False
+    
+            for mapper in reg._mappers_to_configure():
+                run_configure = None
+    
+                for fn in mapper.dispatch.before_mapper_configured:
+                    run_configure = fn(mapper, mapper.class_)
+                    if run_configure is EXT_SKIP:
+                        has_skip = True
+                        break
+                if run_configure is EXT_SKIP:
+                    continue
+    
+                if getattr(mapper, "_configure_failed", False):
+                    e = sa_exc.InvalidRequestError(
+                        "One or more mappers failed to initialize - "
+                        "can't proceed with initialization of other "
+                        "mappers. Triggering mapper: '%s'. "
+                        "Original exception was: %s"
+                        % (mapper, mapper._configure_failed)
+                    )
+                    e._configure_failed = mapper._configure_failed  # type: ignore
+>                   raise e
+E                   sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+
+.venv\Lib\site-packages\sqlalchemy\orm\mapper.py:4264: InvalidRequestError
+============================== warnings summary ===============================
+app\main.py:43
+  d:\apartment\app\main.py:43: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+.venv\Lib\site-packages\fastapi\applications.py:4579
+  d:\apartment\.venv\Lib\site-packages\fastapi\applications.py:4579: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_auth.py::test_create_and_login_user - sqlalchemy.exc.InvalidRequestError: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+FAILED tests/test_billing_export.py::test_export_bill_csv - sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+FAILED tests/test_billing_state.py::test_full_bill_lifecycle - sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+FAILED tests/test_imports.py::test_rooms_import_idempotent - sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+FAILED tests/test_imports.py::test_leases_import_rollback_on_overlap - sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+FAILED tests/test_models.py::test_create_and_bind_models[sqlite:///:memory:] - sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+FAILED tests/test_payments_api.py::test_payments_api_json_and_form - sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Company(company)]'. Original exception was: When initializing mapper Mapper[Company(company)], expression "relationship("Mapped[List['Community']]")" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "communities: Mapped[Mapped[List['Community']']] = relationship()"
+=================== 7 failed, 2 passed, 2 warnings in 7.79s ===================

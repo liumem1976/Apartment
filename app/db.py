@@ -1,6 +1,6 @@
-from sqlmodel import SQLModel, create_engine
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
+from sqlmodel import SQLModel, create_engine
 
 # SQLite database file (named params enforced via SQLModel/SQLAlchemy usage)
 DATABASE_URL = "sqlite:///./data/app.db"
@@ -24,3 +24,8 @@ def _set_sqlite_pragma(dbapi_connection, connection_record):
 
 def init_db():
     SQLModel.metadata.create_all(engine)
+    # Database schema changes should be applied via Alembic migrations.
+    # The `alembic/versions/0002_add_unit_remark.py` revision was added to
+    # add the `remark` column to `unit` — run `alembic upgrade head` in
+    # your environment to apply it. We avoid making schema changes at
+    # runtime in `init_db()` to keep behavior predictable in production.
