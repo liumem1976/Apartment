@@ -1,4 +1,5 @@
 name: CI
+# Ensure ruff is invoked with the 'check' subcommand to avoid syntax error
 
 on:
   push:
