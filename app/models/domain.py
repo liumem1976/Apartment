@@ -10,7 +10,6 @@ from sqlalchemy.orm import relationship as sa_relationship
 from sqlmodel import Field, Relationship, SQLModel
 from sqlmodel import select
 from sqlmodel import Session as SQLSession
-from sqlalchemy import or_, and_
 
 
 class BillStatus(str, Enum):
@@ -229,8 +228,7 @@ def assert_no_lease_overlap(session: SQLSession, unit_id: int, start_date, end_d
     Overlap definition: existing.start <= end_date and (existing.end is None or existing.end >= start_date)
     Treat None as open-ended.
     """
-    from typing import Optional as _Optional
-
+    # no local imports required here
     stmt = select(Lease).where(Lease.unit_id == unit_id)
     if exclude_id is not None:
         stmt = stmt.where(Lease.id != exclude_id)

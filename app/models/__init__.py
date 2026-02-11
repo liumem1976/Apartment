@@ -39,4 +39,5 @@ __all__ = [
     "AppConfig",
     "ImportBatch",
     "BillStatus",
+    "assert_no_lease_overlap",
 ]
