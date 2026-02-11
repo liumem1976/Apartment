@@ -17,8 +17,8 @@ from .domain import (
     Tenant,
     Unit,
     User,
+    assert_no_lease_overlap,
 )
-from .domain import assert_no_lease_overlap
 
 __all__ = [
     "Company",

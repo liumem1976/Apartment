@@ -1,5 +1,6 @@
-import pytest
 from decimal import Decimal
+
+import pytest
 from sqlmodel import Session, SQLModel, create_engine
 
 

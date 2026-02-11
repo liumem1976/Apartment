@@ -7,9 +7,7 @@ from typing import List, Optional
 
 from sqlalchemy import Column, Integer, Numeric, Text, UniqueConstraint
 from sqlalchemy.orm import relationship as sa_relationship
-from sqlmodel import Field, Relationship, SQLModel
-from sqlmodel import select
-from sqlmodel import Session as SQLSession
+from sqlmodel import Field, Relationship, SQLModel, Session as SQLSession, select
 
 
 class BillStatus(str, Enum):

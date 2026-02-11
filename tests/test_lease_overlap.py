@@ -1,5 +1,6 @@
-import pytest
 from datetime import date
+
+import pytest
 from sqlmodel import Session, SQLModel, create_engine
 
 
