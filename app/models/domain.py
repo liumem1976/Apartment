@@ -8,6 +8,9 @@ from typing import List, Optional
 from sqlalchemy import Column, Integer, Numeric, Text, UniqueConstraint
 from sqlalchemy.orm import relationship as sa_relationship
 from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import select
+from sqlmodel import Session as SQLSession
+from sqlalchemy import or_, and_
 
 
 class BillStatus(str, Enum):
@@ -218,3 +221,33 @@ class ImportBatch(SQLModel, table=True):
     finished_at: Optional[datetime] = None
     result: Optional[str] = Field(default=None, sa_column=Column(Text))
     errors: Optional[str] = Field(default=None, sa_column=Column(Text))
+
+
+def assert_no_lease_overlap(session: SQLSession, unit_id: int, start_date, end_date, exclude_id: Optional[int] = None) -> None:
+    """Raise ValueError if a lease for the same unit overlaps the given period.
+
+    Overlap definition: existing.start <= end_date and (existing.end is None or existing.end >= start_date)
+    Treat None as open-ended.
+    """
+    from typing import Optional as _Optional
+
+    stmt = select(Lease).where(Lease.unit_id == unit_id)
+    if exclude_id is not None:
+        stmt = stmt.where(Lease.id != exclude_id)
+
+    existing = session.exec(stmt).all()
+    for ex in existing:
+        ex_start = ex.start_date
+        ex_end = ex.end_date
+        # normalize None as open-ended
+        if ex_end is None:
+            # any start_date <= ex_end(open) => overlap if ex_start <= end_date or end_date is None
+            if end_date is None or ex_start <= end_date:
+                if start_date is None or ex_start <= end_date:
+                    raise ValueError(f"Lease overlaps existing lease id={ex.id}")
+        else:
+            # both ends present
+            if (ex_start <= (end_date if end_date is not None else ex_end)) and (
+                (start_date if start_date is not None else ex_start) <= ex_end
+            ):
+                raise ValueError(f"Lease overlaps existing lease id={ex.id}")
