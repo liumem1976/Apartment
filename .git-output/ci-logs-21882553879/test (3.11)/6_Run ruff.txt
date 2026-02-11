@@ -1,0 +1,15 @@
+﻿2026-02-10T21:11:52.8846962Z ##[group]Run ruff check .
+2026-02-10T21:11:52.8847228Z [36;1mruff check .[0m
+2026-02-10T21:11:52.8879506Z shell: /usr/bin/bash -e {0}
+2026-02-10T21:11:52.8879918Z env:
+2026-02-10T21:11:52.8880110Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:52.8880413Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:52.8881102Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:52.8881377Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:52.8881976Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-10T21:11:52.8882378Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:52.8882731Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:52.8883078Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:52.8883427Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-10T21:11:52.8883720Z ##[endgroup]
+2026-02-10T21:11:52.9034610Z All checks passed!

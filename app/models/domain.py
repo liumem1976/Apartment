@@ -97,6 +97,8 @@ class Lease(SQLModel, table=True):
 
 
 class Meter(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("unit_id", "kind", "slot", name="uq_meter_unit_kind_slot"),)
+
     id: Optional[int] = Field(default=None, primary_key=True)
     unit_id: int = Field(foreign_key="unit.id")
     kind: str = Field(nullable=False)  # cold_water/hot_water

@@ -1,0 +1,15 @@
+﻿2026-02-10T21:11:52.9071017Z ##[group]Run isort . --check-only
+2026-02-10T21:11:52.9071314Z [36;1misort . --check-only[0m
+2026-02-10T21:11:52.9103969Z shell: /usr/bin/bash -e {0}
+2026-02-10T21:11:52.9104200Z env:
+2026-02-10T21:11:52.9104391Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:52.9104695Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:52.9105382Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:52.9105669Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:52.9106078Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-10T21:11:52.9106495Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:52.9106855Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:52.9107243Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:52.9107602Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-10T21:11:52.9107897Z ##[endgroup]
+2026-02-10T21:11:53.0783438Z Skipped 1 files
