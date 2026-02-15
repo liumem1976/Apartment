@@ -17,15 +17,16 @@ def test_create_and_bind_models(url):
 
 
 def test_meter_unique_constraint():
-    from app.models import Meter
     from sqlalchemy.exc import IntegrityError
+
+    from app.models import Meter
 
     engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:
         # create referenced company/community/building/unit to satisfy FKs
-        from app.models import Company, Community, Building, Unit
+        from app.models import Building, Community, Company, Unit
 
         comp = Company(code="C1", name="Co")
         session.add(comp)

@@ -5,17 +5,18 @@ from sqlmodel import Session, SQLModel, create_engine
 
 
 def test_bill_unique_constraint_and_decimal_precision():
-    from app.models import Bill, BillLine
+    from datetime import date
+
     from sqlalchemy.exc import IntegrityError
 
-    from datetime import date
+    from app.models import Bill, BillLine
 
     engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:
         # create referenced company/community/building/unit to satisfy FKs
-        from app.models import Company, Community, Building, Unit
+        from app.models import Building, Community, Company, Unit
 
         comp = Company(code="C1", name="Co")
         session.add(comp)

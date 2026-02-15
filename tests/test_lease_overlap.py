@@ -5,7 +5,15 @@ from sqlmodel import Session, SQLModel, create_engine
 
 
 def test_lease_overlap_detection():
-    from app.models import Company, Community, Building, Unit, Tenant, Lease, assert_no_lease_overlap
+    from app.models import (
+        Building,
+        Community,
+        Company,
+        Lease,
+        Tenant,
+        Unit,
+        assert_no_lease_overlap,
+    )
 
     engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
     SQLModel.metadata.create_all(engine)
