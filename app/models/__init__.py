@@ -17,6 +17,7 @@ from .domain import (
     Tenant,
     Unit,
     User,
+    assert_no_lease_overlap,
 )
 
 __all__ = [
@@ -38,4 +39,5 @@ __all__ = [
     "AppConfig",
     "ImportBatch",
     "BillStatus",
+    "assert_no_lease_overlap",
 ]

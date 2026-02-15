@@ -1,0 +1,16 @@
+﻿2026-02-10T21:11:53.0938809Z ##[group]Run black --check .
+2026-02-10T21:11:53.0939109Z [36;1mblack --check .[0m
+2026-02-10T21:11:53.0971017Z shell: /usr/bin/bash -e {0}
+2026-02-10T21:11:53.0971254Z env:
+2026-02-10T21:11:53.0971444Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:53.0971748Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:53.0972450Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:53.0972738Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.0973146Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-10T21:11:53.0973545Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.0973896Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.0974244Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.0974600Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-10T21:11:53.0974898Z ##[endgroup]
+2026-02-10T21:11:53.7041796Z All done! ✨ 🍰 ✨
+2026-02-10T21:11:53.7042577Z 29 files would be left unchanged.

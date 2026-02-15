@@ -1,0 +1,20 @@
+﻿2026-02-10T21:11:53.7448473Z ##[group]Run alembic stamp 0003_merge_heads || true
+2026-02-10T21:11:53.7448825Z [36;1malembic stamp 0003_merge_heads || true[0m
+2026-02-10T21:11:53.7449095Z [36;1malembic upgrade head[0m
+2026-02-10T21:11:53.7477420Z shell: /usr/bin/bash -e {0}
+2026-02-10T21:11:53.7477645Z env:
+2026-02-10T21:11:53.7477832Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:53.7478320Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:53.7479011Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:53.7479281Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.7479947Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-10T21:11:53.7480363Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.7480716Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.7481070Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.7481438Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-10T21:11:53.7481791Z ##[endgroup]
+2026-02-10T21:11:54.3656899Z INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+2026-02-10T21:11:54.3657664Z INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+2026-02-10T21:11:54.3723675Z INFO  [alembic.runtime.migration] Running stamp_revision  -> 0003_merge_heads
+2026-02-10T21:11:54.9613302Z INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+2026-02-10T21:11:54.9614095Z INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
