@@ -234,24 +234,20 @@ def assert_no_lease_overlap(
     Overlap definition: existing.start <= end_date and (existing.end is None or existing.end >= start_date)
     Treat None as open-ended.
     """
-    # no local imports required here
+    # Fetch existing leases for the unit (optionally excluding one id).
     stmt = select(Lease).where(Lease.unit_id == unit_id)
     if exclude_id is not None:
         stmt = stmt.where(Lease.id != exclude_id)
 
     existing = session.exec(stmt).all()
+    # Normalize open-ended dates by mapping None -> extreme values so comparisons are simple.
     for ex in existing:
         ex_start = ex.start_date
-        ex_end = ex.end_date
-        # normalize None as open-ended
-        if ex_end is None:
-            # any start_date <= ex_end(open) => overlap if ex_start <= end_date or end_date is None
-            if end_date is None or ex_start <= end_date:
-                if start_date is None or ex_start <= end_date:
-                    raise ValueError(f"Lease overlaps existing lease id={ex.id}")
-        else:
-            # both ends present
-            if (ex_start <= (end_date if end_date is not None else ex_end)) and (
-                (start_date if start_date is not None else ex_start) <= ex_end
-            ):
-                raise ValueError(f"Lease overlaps existing lease id={ex.id}")
+        ex_end = ex.end_date or date.max
+
+        sd = start_date or date.min
+        ed = end_date or date.max
+
+        # Overlap exists unless one interval is strictly before the other.
+        if not (ex_end < sd or ed < ex_start):
+            raise ValueError(f"Lease overlaps existing lease id={ex.id}")
