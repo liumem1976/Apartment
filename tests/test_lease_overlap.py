@@ -15,7 +15,9 @@ def test_lease_overlap_detection():
         assert_no_lease_overlap,
     )
 
-    engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
+    engine = create_engine(
+        "sqlite:///:memory:", connect_args={"check_same_thread": False}
+    )
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:
@@ -40,7 +42,12 @@ def test_lease_overlap_detection():
         session.commit()
 
         # existing lease covers 2026-01-01 .. 2026-06-30
-        l1 = Lease(unit_id=u.id, tenant_id=tenant.id, start_date=date(2026, 1, 1), end_date=date(2026, 6, 30))
+        l1 = Lease(
+            unit_id=u.id,
+            tenant_id=tenant.id,
+            start_date=date(2026, 1, 1),
+            end_date=date(2026, 6, 30),
+        )
         session.add(l1)
         session.commit()
 

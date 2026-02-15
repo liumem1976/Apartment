@@ -21,7 +21,9 @@ def test_meter_unique_constraint():
 
     from app.models import Meter
 
-    engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
+    engine = create_engine(
+        "sqlite:///:memory:", connect_args={"check_same_thread": False}
+    )
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:

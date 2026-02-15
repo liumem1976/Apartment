@@ -97,7 +97,9 @@ class Lease(SQLModel, table=True):
 
 
 class Meter(SQLModel, table=True):
-    __table_args__ = (UniqueConstraint("unit_id", "kind", "slot", name="uq_meter_unit_kind_slot"),)
+    __table_args__ = (
+        UniqueConstraint("unit_id", "kind", "slot", name="uq_meter_unit_kind_slot"),
+    )
 
     id: Optional[int] = Field(default=None, primary_key=True)
     unit_id: int = Field(foreign_key="unit.id")
@@ -220,7 +222,13 @@ class ImportBatch(SQLModel, table=True):
     errors: Optional[str] = Field(default=None, sa_column=Column(Text))
 
 
-def assert_no_lease_overlap(session: SQLSession, unit_id: int, start_date, end_date, exclude_id: Optional[int] = None) -> None:
+def assert_no_lease_overlap(
+    session: SQLSession,
+    unit_id: int,
+    start_date,
+    end_date,
+    exclude_id: Optional[int] = None,
+) -> None:
     """Raise ValueError if a lease for the same unit overlaps the given period.
 
     Overlap definition: existing.start <= end_date and (existing.end is None or existing.end >= start_date)

@@ -11,7 +11,9 @@ def test_bill_unique_constraint_and_decimal_precision():
 
     from app.models import Bill, BillLine
 
-    engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
+    engine = create_engine(
+        "sqlite:///:memory:", connect_args={"check_same_thread": False}
+    )
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:
@@ -34,16 +36,33 @@ def test_bill_unique_constraint_and_decimal_precision():
         session.add(u)
         session.commit()
 
-        b1 = Bill(unit_id=u.id, cycle_start=date(2026, 2, 1), cycle_end=date(2026, 2, 28), status="draft", total_amount=Decimal("1234.5678"))
+        b1 = Bill(
+            unit_id=u.id,
+            cycle_start=date(2026, 2, 1),
+            cycle_end=date(2026, 2, 28),
+            status="draft",
+            total_amount=Decimal("1234.5678"),
+        )
         session.add(b1)
         session.commit()
 
-        bl = BillLine(bill_id=b1.id, item_code="water", qty=Decimal("1.0"), unit_price=Decimal("1234.5678"), amount=Decimal("1234.5678"))
+        bl = BillLine(
+            bill_id=b1.id,
+            item_code="water",
+            qty=Decimal("1.0"),
+            unit_price=Decimal("1234.5678"),
+            amount=Decimal("1234.5678"),
+        )
         session.add(bl)
         session.commit()
 
         # Bill unique constraint: same unit_id and cycle_start should violate
-        b2 = Bill(unit_id=u.id, cycle_start=date(2026, 2, 1), cycle_end=date(2026, 2, 28), status="draft")
+        b2 = Bill(
+            unit_id=u.id,
+            cycle_start=date(2026, 2, 1),
+            cycle_end=date(2026, 2, 28),
+            status="draft",
+        )
         session.add(b2)
         with pytest.raises(IntegrityError):
             session.commit()
