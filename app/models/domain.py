@@ -159,7 +159,6 @@ class Bill(SQLModel, table=True):
 
 
 class BillLine(SQLModel, table=True):
-
     id: Optional[int] = Field(default=None, primary_key=True)
     bill_id: int = Field(foreign_key="bill.id")
     item_code: str = Field(nullable=False)
