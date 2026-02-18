@@ -1,0 +1,493 @@
+﻿test (3.11)	Set up job	锘?026-02-15T18:00:31.6562111Z Current runner version: '2.331.0'
+test (3.11)	Set up job	2026-02-15T18:00:31.6588809Z ##[group]Runner Image Provisioner
+test (3.11)	Set up job	2026-02-15T18:00:31.6590392Z Hosted Compute Agent
+test (3.11)	Set up job	2026-02-15T18:00:31.6591280Z Version: 20260123.484
+test (3.11)	Set up job	2026-02-15T18:00:31.6592342Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+test (3.11)	Set up job	2026-02-15T18:00:31.6593480Z Build Date: 2026-01-23T19:41:17Z
+test (3.11)	Set up job	2026-02-15T18:00:31.6594518Z Worker ID: {615da0ba-9a0a-4a8b-929f-87b73ee8bfe5}
+test (3.11)	Set up job	2026-02-15T18:00:31.6595753Z Azure Region: eastus2
+test (3.11)	Set up job	2026-02-15T18:00:31.6596670Z ##[endgroup]
+test (3.11)	Set up job	2026-02-15T18:00:31.6598797Z ##[group]Operating System
+test (3.11)	Set up job	2026-02-15T18:00:31.6600249Z Ubuntu
+test (3.11)	Set up job	2026-02-15T18:00:31.6601187Z 24.04.3
+test (3.11)	Set up job	2026-02-15T18:00:31.6601999Z LTS
+test (3.11)	Set up job	2026-02-15T18:00:31.6602925Z ##[endgroup]
+test (3.11)	Set up job	2026-02-15T18:00:31.6603807Z ##[group]Runner Image
+test (3.11)	Set up job	2026-02-15T18:00:31.6604801Z Image: ubuntu-24.04
+test (3.11)	Set up job	2026-02-15T18:00:31.6605876Z Version: 20260209.23.1
+test (3.11)	Set up job	2026-02-15T18:00:31.6607648Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260209.23/images/ubuntu/Ubuntu2404-Readme.md
+test (3.11)	Set up job	2026-02-15T18:00:31.6610711Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260209.23
+test (3.11)	Set up job	2026-02-15T18:00:31.6612252Z ##[endgroup]
+test (3.11)	Set up job	2026-02-15T18:00:31.6614135Z ##[group]GITHUB_TOKEN Permissions
+test (3.11)	Set up job	2026-02-15T18:00:31.6617079Z Contents: read
+test (3.11)	Set up job	2026-02-15T18:00:31.6618028Z Metadata: read
+test (3.11)	Set up job	2026-02-15T18:00:31.6618802Z Packages: read
+test (3.11)	Set up job	2026-02-15T18:00:31.6620028Z ##[endgroup]
+test (3.11)	Set up job	2026-02-15T18:00:31.6623176Z Secret source: Actions
+test (3.11)	Set up job	2026-02-15T18:00:31.6624669Z Prepare workflow directory
+test (3.11)	Set up job	2026-02-15T18:00:31.7343143Z Prepare all required actions
+test (3.11)	Set up job	2026-02-15T18:00:31.7397264Z Getting action download info
+test (3.11)	Set up job	2026-02-15T18:00:32.0062621Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+test (3.11)	Set up job	2026-02-15T18:00:32.1825301Z Download action repository 'actions/setup-python@v4' (SHA:7f4fc3e22c37d6ff65e88745f38bd3157c663f7c)
+test (3.11)	Set up job	2026-02-15T18:00:32.3595837Z Complete job name: test (3.11)
+test (3.11)	Checkout	锘?026-02-15T18:00:32.4277747Z ##[group]Run actions/checkout@v4
+test (3.11)	Checkout	2026-02-15T18:00:32.4278631Z with:
+test (3.11)	Checkout	2026-02-15T18:00:32.4279116Z   repository: liumem1976/Apartment
+test (3.11)	Checkout	2026-02-15T18:00:32.4280042Z   token: ***
+test (3.11)	Checkout	2026-02-15T18:00:32.4280486Z   ssh-strict: true
+test (3.11)	Checkout	2026-02-15T18:00:32.4280909Z   ssh-user: git
+test (3.11)	Checkout	2026-02-15T18:00:32.4281330Z   persist-credentials: true
+test (3.11)	Checkout	2026-02-15T18:00:32.4281807Z   clean: true
+test (3.11)	Checkout	2026-02-15T18:00:32.4282234Z   sparse-checkout-cone-mode: true
+test (3.11)	Checkout	2026-02-15T18:00:32.4282751Z   fetch-depth: 1
+test (3.11)	Checkout	2026-02-15T18:00:32.4283167Z   fetch-tags: false
+test (3.11)	Checkout	2026-02-15T18:00:32.4283598Z   show-progress: true
+test (3.11)	Checkout	2026-02-15T18:00:32.4284037Z   lfs: false
+test (3.11)	Checkout	2026-02-15T18:00:32.4284451Z   submodules: false
+test (3.11)	Checkout	2026-02-15T18:00:32.4284882Z   set-safe-directory: true
+test (3.11)	Checkout	2026-02-15T18:00:32.4285603Z env:
+test (3.11)	Checkout	2026-02-15T18:00:32.4286052Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Checkout	2026-02-15T18:00:32.4286685Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Checkout	2026-02-15T18:00:32.4287820Z   CI_READ_TOKEN: ***
+test (3.11)	Checkout	2026-02-15T18:00:32.4288257Z ##[endgroup]
+test (3.11)	Checkout	2026-02-15T18:00:32.5376451Z Syncing repository: liumem1976/Apartment
+test (3.11)	Checkout	2026-02-15T18:00:32.5378700Z ##[group]Getting Git version info
+test (3.11)	Checkout	2026-02-15T18:00:32.5379507Z Working directory is '/home/runner/work/Apartment/Apartment'
+test (3.11)	Checkout	2026-02-15T18:00:32.5380936Z [command]/usr/bin/git version
+test (3.11)	Checkout	2026-02-15T18:00:32.5402887Z git version 2.52.0
+test (3.11)	Checkout	2026-02-15T18:00:32.5428464Z ##[endgroup]
+test (3.11)	Checkout	2026-02-15T18:00:32.5442963Z Temporarily overriding HOME='/home/runner/work/_temp/6f941ee9-b775-41a6-b86d-ded3897f8b9e' before making global git config changes
+test (3.11)	Checkout	2026-02-15T18:00:32.5445591Z Adding repository directory to the temporary git global config as a safe directory
+test (3.11)	Checkout	2026-02-15T18:00:32.5447789Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Apartment/Apartment
+test (3.11)	Checkout	2026-02-15T18:00:32.5489298Z Deleting the contents of '/home/runner/work/Apartment/Apartment'
+test (3.11)	Checkout	2026-02-15T18:00:32.5493256Z ##[group]Initializing the repository
+test (3.11)	Checkout	2026-02-15T18:00:32.5497080Z [command]/usr/bin/git init /home/runner/work/Apartment/Apartment
+test (3.11)	Checkout	2026-02-15T18:00:32.5600761Z hint: Using 'master' as the name for the initial branch. This default branch name
+test (3.11)	Checkout	2026-02-15T18:00:32.5602498Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+test (3.11)	Checkout	2026-02-15T18:00:32.5603488Z hint: to use in all of your new repositories, which will suppress this warning,
+test (3.11)	Checkout	2026-02-15T18:00:32.5604850Z hint: call:
+test (3.11)	Checkout	2026-02-15T18:00:32.5605679Z hint:
+test (3.11)	Checkout	2026-02-15T18:00:32.5606659Z hint: 	git config --global init.defaultBranch <name>
+test (3.11)	Checkout	2026-02-15T18:00:32.5607899Z hint:
+test (3.11)	Checkout	2026-02-15T18:00:32.5609073Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+test (3.11)	Checkout	2026-02-15T18:00:32.5611254Z hint: 'development'. The just-created branch can be renamed via this command:
+test (3.11)	Checkout	2026-02-15T18:00:32.5612813Z hint:
+test (3.11)	Checkout	2026-02-15T18:00:32.5613597Z hint: 	git branch -m <name>
+test (3.11)	Checkout	2026-02-15T18:00:32.5614437Z hint:
+test (3.11)	Checkout	2026-02-15T18:00:32.5615603Z hint: Disable this message with "git config set advice.defaultBranchName false"
+test (3.11)	Checkout	2026-02-15T18:00:32.5617698Z Initialized empty Git repository in /home/runner/work/Apartment/Apartment/.git/
+test (3.11)	Checkout	2026-02-15T18:00:32.5621260Z [command]/usr/bin/git remote add origin https://github.com/liumem1976/Apartment
+test (3.11)	Checkout	2026-02-15T18:00:32.5666004Z ##[endgroup]
+test (3.11)	Checkout	2026-02-15T18:00:32.5667420Z ##[group]Disabling automatic garbage collection
+test (3.11)	Checkout	2026-02-15T18:00:32.5671148Z [command]/usr/bin/git config --local gc.auto 0
+test (3.11)	Checkout	2026-02-15T18:00:32.5702008Z ##[endgroup]
+test (3.11)	Checkout	2026-02-15T18:00:32.5703541Z ##[group]Setting up auth
+test (3.11)	Checkout	2026-02-15T18:00:32.5709740Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+test (3.11)	Checkout	2026-02-15T18:00:32.5743501Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+test (3.11)	Checkout	2026-02-15T18:00:32.6106309Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+test (3.11)	Checkout	2026-02-15T18:00:32.6138861Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+test (3.11)	Checkout	2026-02-15T18:00:32.6401811Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+test (3.11)	Checkout	2026-02-15T18:00:32.6440100Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+test (3.11)	Checkout	2026-02-15T18:00:32.6708738Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+test (3.11)	Checkout	2026-02-15T18:00:32.6748879Z ##[endgroup]
+test (3.11)	Checkout	2026-02-15T18:00:32.6750543Z ##[group]Fetching the repository
+test (3.11)	Checkout	2026-02-15T18:00:32.6758562Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7008c9d15bdebe70373652301f2fde0d8416e579:refs/remotes/pull/4/merge
+test (3.11)	Checkout	2026-02-15T18:00:32.9178407Z From https://github.com/liumem1976/Apartment
+test (3.11)	Checkout	2026-02-15T18:00:32.9180146Z  * [new ref]         7008c9d15bdebe70373652301f2fde0d8416e579 -> pull/4/merge
+test (3.11)	Checkout	2026-02-15T18:00:32.9213672Z ##[endgroup]
+test (3.11)	Checkout	2026-02-15T18:00:32.9214480Z ##[group]Determining the checkout info
+test (3.11)	Checkout	2026-02-15T18:00:32.9216258Z ##[endgroup]
+test (3.11)	Checkout	2026-02-15T18:00:32.9222364Z [command]/usr/bin/git sparse-checkout disable
+test (3.11)	Checkout	2026-02-15T18:00:32.9266150Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+test (3.11)	Checkout	2026-02-15T18:00:32.9294138Z ##[group]Checking out the ref
+test (3.11)	Checkout	2026-02-15T18:00:32.9298792Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/4/merge
+test (3.11)	Checkout	2026-02-15T18:00:32.9597747Z Note: switching to 'refs/remotes/pull/4/merge'.
+test (3.11)	Checkout	2026-02-15T18:00:32.9598738Z 
+test (3.11)	Checkout	2026-02-15T18:00:32.9599416Z You are in 'detached HEAD' state. You can look around, make experimental
+test (3.11)	Checkout	2026-02-15T18:00:32.9601343Z changes and commit them, and you can discard any commits you make in this
+test (3.11)	Checkout	2026-02-15T18:00:32.9602955Z state without impacting any branches by switching back to a branch.
+test (3.11)	Checkout	2026-02-15T18:00:32.9603842Z 
+test (3.11)	Checkout	2026-02-15T18:00:32.9604219Z If you want to create a new branch to retain commits you create, you may
+test (3.11)	Checkout	2026-02-15T18:00:32.9605119Z do so (now or later) by using -c with the switch command. Example:
+test (3.11)	Checkout	2026-02-15T18:00:32.9605901Z 
+test (3.11)	Checkout	2026-02-15T18:00:32.9606110Z   git switch -c <new-branch-name>
+test (3.11)	Checkout	2026-02-15T18:00:32.9606452Z 
+test (3.11)	Checkout	2026-02-15T18:00:32.9606653Z Or undo this operation with:
+test (3.11)	Checkout	2026-02-15T18:00:32.9606975Z 
+test (3.11)	Checkout	2026-02-15T18:00:32.9607173Z   git switch -
+test (3.11)	Checkout	2026-02-15T18:00:32.9607645Z 
+test (3.11)	Checkout	2026-02-15T18:00:32.9608377Z Turn off this advice by setting config variable advice.detachedHead to false
+test (3.11)	Checkout	2026-02-15T18:00:32.9609313Z 
+test (3.11)	Checkout	2026-02-15T18:00:32.9610289Z HEAD is now at 7008c9d Merge 58c150a01a3203b3674bd2eb5e6a9890c643728c into 21cadbdb645008ccf6c7f1434bed1e218b2e2eff
+test (3.11)	Checkout	2026-02-15T18:00:32.9612236Z ##[endgroup]
+test (3.11)	Checkout	2026-02-15T18:00:32.9646504Z [command]/usr/bin/git log -1 --format=%H
+test (3.11)	Checkout	2026-02-15T18:00:32.9669520Z 7008c9d15bdebe70373652301f2fde0d8416e579
+test (3.11)	Set up Python	锘?026-02-15T18:00:32.9911337Z ##[group]Run actions/setup-python@v4
+test (3.11)	Set up Python	2026-02-15T18:00:32.9911955Z with:
+test (3.11)	Set up Python	2026-02-15T18:00:32.9912345Z   python-version: 3.11
+test (3.11)	Set up Python	2026-02-15T18:00:32.9912797Z   check-latest: false
+test (3.11)	Set up Python	2026-02-15T18:00:32.9913409Z   token: ***
+test (3.11)	Set up Python	2026-02-15T18:00:32.9913837Z   update-environment: true
+test (3.11)	Set up Python	2026-02-15T18:00:32.9914309Z   allow-prereleases: false
+test (3.11)	Set up Python	2026-02-15T18:00:32.9914742Z env:
+test (3.11)	Set up Python	2026-02-15T18:00:32.9915140Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Set up Python	2026-02-15T18:00:32.9915733Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Set up Python	2026-02-15T18:00:32.9916792Z   CI_READ_TOKEN: ***
+test (3.11)	Set up Python	2026-02-15T18:00:32.9917211Z ##[endgroup]
+test (3.11)	Set up Python	2026-02-15T18:00:33.1633714Z ##[group]Installed versions
+test (3.11)	Set up Python	2026-02-15T18:00:33.1752753Z Successfully set up CPython (3.11.14)
+test (3.11)	Set up Python	2026-02-15T18:00:33.1754645Z ##[endgroup]
+test (3.11)	Install dependencies	锘?026-02-15T18:00:33.1893383Z ##[group]Run python -m pip install --upgrade pip
+test (3.11)	Install dependencies	2026-02-15T18:00:33.1894909Z [36;1mpython -m pip install --upgrade pip[0m
+test (3.11)	Install dependencies	2026-02-15T18:00:33.1896626Z [36;1mif [ -f requirements.txt ]; then pip install -r requirements.txt; fi[0m
+test (3.11)	Install dependencies	2026-02-15T18:00:33.1965666Z shell: /usr/bin/bash -e {0}
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2034878Z env:
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2035875Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2037317Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2040274Z   CI_READ_TOKEN: ***
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2041459Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2043274Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2045080Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2046719Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2048325Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2050105Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+test (3.11)	Install dependencies	2026-02-15T18:00:33.2051512Z ##[endgroup]
+test (3.11)	Install dependencies	2026-02-15T18:00:33.9822951Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages (26.0.1)
+test (3.11)	Install dependencies	2026-02-15T18:00:34.6738567Z Collecting fastapi>=0.100.0 (from -r requirements.txt (line 1))
+test (3.11)	Install dependencies	2026-02-15T18:00:34.7410801Z   Downloading fastapi-0.129.0-py3-none-any.whl.metadata (30 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:34.7894248Z Collecting uvicorn>=0.22.0 (from uvicorn[standard]>=0.22.0->-r requirements.txt (line 2))
+test (3.11)	Install dependencies	2026-02-15T18:00:34.7977143Z   Downloading uvicorn-0.40.0-py3-none-any.whl.metadata (6.7 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:34.8170086Z Collecting sqlmodel==0.0.32 (from -r requirements.txt (line 3))
+test (3.11)	Install dependencies	2026-02-15T18:00:34.8267753Z   Downloading sqlmodel-0.0.32-py3-none-any.whl.metadata (10 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:34.9559647Z Collecting pydantic>=2.0 (from -r requirements.txt (line 4))
+test (3.11)	Install dependencies	2026-02-15T18:00:34.9639304Z   Downloading pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:34.9945130Z Collecting jinja2>=3.1.0 (from -r requirements.txt (line 5))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.0025965Z   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.0220864Z Collecting apscheduler>=3.10.0 (from -r requirements.txt (line 6))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.0295766Z   Downloading apscheduler-3.11.2-py3-none-any.whl.metadata (6.4 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.0546002Z Collecting alembic>=1.11.0 (from -r requirements.txt (line 7))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.0621070Z   Downloading alembic-1.18.4-py3-none-any.whl.metadata (7.2 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.0813886Z Collecting openpyxl>=3.1.0 (from -r requirements.txt (line 8))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.0884491Z   Downloading openpyxl-3.1.5-py2.py3-none-any.whl.metadata (2.5 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.1038084Z Collecting python-multipart>=0.0.6 (from -r requirements.txt (line 9))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.1110330Z   Downloading python_multipart-0.0.22-py3-none-any.whl.metadata (1.8 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.1308165Z Collecting httpx>=0.24.0 (from -r requirements.txt (line 10))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.1378955Z   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.1695092Z Collecting pytest>=7.4.0 (from -r requirements.txt (line 11))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.1769196Z   Downloading pytest-9.0.2-py3-none-any.whl.metadata (7.6 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.1960813Z Collecting python-dotenv>=1.2.0 (from -r requirements.txt (line 12))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.2035351Z   Downloading python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.2219537Z Collecting passlib>=1.7.0 (from passlib[bcrypt]>=1.7.0->-r requirements.txt (line 13))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.2291729Z   Downloading passlib-1.7.4-py2.py3-none-any.whl.metadata (1.7 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.2445938Z Collecting python-jose>=3.3.0 (from python-jose[cryptography]>=3.3.0->-r requirements.txt (line 14))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.2518760Z   Downloading python_jose-3.5.0-py2.py3-none-any.whl.metadata (5.5 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.5373883Z Collecting SQLAlchemy<2.1.0,>=2.0.14 (from sqlmodel==0.0.32->-r requirements.txt (line 3))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.5456398Z   Downloading sqlalchemy-2.0.46-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.5 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.6877581Z Collecting greenlet>=1 (from SQLAlchemy<2.1.0,>=2.0.14->sqlmodel==0.0.32->-r requirements.txt (line 3))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.6954397Z   Downloading greenlet-3.3.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.7 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.7142932Z Collecting typing-extensions>=4.6.0 (from SQLAlchemy<2.1.0,>=2.0.14->sqlmodel==0.0.32->-r requirements.txt (line 3))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.7234041Z   Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.7484573Z Collecting starlette<1.0.0,>=0.40.0 (from fastapi>=0.100.0->-r requirements.txt (line 1))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.7565765Z   Downloading starlette-0.52.1-py3-none-any.whl.metadata (6.3 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.7723869Z Collecting typing-inspection>=0.4.2 (from fastapi>=0.100.0->-r requirements.txt (line 1))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.7805352Z   Downloading typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.7938020Z Collecting annotated-doc>=0.0.2 (from fastapi>=0.100.0->-r requirements.txt (line 1))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.8017890Z   Downloading annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.8222322Z Collecting anyio<5,>=3.6.2 (from starlette<1.0.0,>=0.40.0->fastapi>=0.100.0->-r requirements.txt (line 1))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.8294238Z   Downloading anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.8473729Z Collecting idna>=2.8 (from anyio<5,>=3.6.2->starlette<1.0.0,>=0.40.0->fastapi>=0.100.0->-r requirements.txt (line 1))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.8546520Z   Downloading idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.8754888Z Collecting click>=7.0 (from uvicorn>=0.22.0->uvicorn[standard]>=0.22.0->-r requirements.txt (line 2))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.8828602Z   Downloading click-8.3.1-py3-none-any.whl.metadata (2.6 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.8990700Z Collecting h11>=0.8 (from uvicorn>=0.22.0->uvicorn[standard]>=0.22.0->-r requirements.txt (line 2))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.9069534Z   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:35.9348810Z Collecting annotated-types>=0.6.0 (from pydantic>=2.0->-r requirements.txt (line 4))
+test (3.11)	Install dependencies	2026-02-15T18:00:35.9432520Z   Downloading annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.6038787Z Collecting pydantic-core==2.41.5 (from pydantic>=2.0->-r requirements.txt (line 4))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.6117523Z   Downloading pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.6656039Z Collecting MarkupSafe>=2.0 (from jinja2>=3.1.0->-r requirements.txt (line 5))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.6730990Z   Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.6901132Z Collecting tzlocal>=3.0 (from apscheduler>=3.10.0->-r requirements.txt (line 6))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.6971762Z   Downloading tzlocal-5.3.1-py3-none-any.whl.metadata (7.6 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.7212317Z Collecting Mako (from alembic>=1.11.0->-r requirements.txt (line 7))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.7282960Z   Downloading mako-1.3.10-py3-none-any.whl.metadata (2.9 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.7429363Z Collecting et-xmlfile (from openpyxl>=3.1.0->-r requirements.txt (line 8))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.7499573Z   Downloading et_xmlfile-2.0.0-py3-none-any.whl.metadata (2.7 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.7717445Z Collecting certifi (from httpx>=0.24.0->-r requirements.txt (line 10))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.7788918Z   Downloading certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.7985360Z Collecting httpcore==1.* (from httpx>=0.24.0->-r requirements.txt (line 10))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.8055533Z   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.8224935Z Collecting iniconfig>=1.0.1 (from pytest>=7.4.0->-r requirements.txt (line 11))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.8297779Z   Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.8469264Z Collecting packaging>=22 (from pytest>=7.4.0->-r requirements.txt (line 11))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.8542353Z   Downloading packaging-26.0-py3-none-any.whl.metadata (3.3 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.8691131Z Collecting pluggy<2,>=1.5 (from pytest>=7.4.0->-r requirements.txt (line 11))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.8762073Z   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.8996257Z Collecting pygments>=2.7.2 (from pytest>=7.4.0->-r requirements.txt (line 11))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.9074724Z   Downloading pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.9250100Z Collecting ecdsa!=0.15 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 14))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.9322264Z   Downloading ecdsa-0.19.1-py2.py3-none-any.whl.metadata (29 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.9512634Z Collecting rsa!=4.1.1,!=4.4,<5.0,>=4.0 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 14))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.9583893Z   Downloading rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:36.9806610Z Collecting pyasn1>=0.5.0 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 14))
+test (3.11)	Install dependencies	2026-02-15T18:00:36.9876523Z   Downloading pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.0072069Z Collecting six>=1.9.0 (from ecdsa!=0.15->python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 14))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.0143412Z   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.0568634Z Collecting bcrypt>=3.1.0 (from passlib[bcrypt]>=1.7.0->-r requirements.txt (line 13))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.0641460Z   Downloading bcrypt-5.0.0-cp39-abi3-manylinux_2_34_x86_64.whl.metadata (10 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.2320891Z Collecting cryptography>=3.4.0 (from python-jose[cryptography]>=3.3.0->-r requirements.txt (line 14))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.2396811Z   Downloading cryptography-46.0.5-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (5.7 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.3409410Z Collecting cffi>=2.0.0 (from cryptography>=3.4.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 14))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.3487032Z   Downloading cffi-2.0.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.6 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.3650262Z Collecting pycparser (from cffi>=2.0.0->cryptography>=3.4.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 14))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.3720541Z   Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.4594760Z Collecting httptools>=0.6.3 (from uvicorn[standard]>=0.22.0->-r requirements.txt (line 2))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.4671827Z   Downloading httptools-0.7.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.5065643Z Collecting pyyaml>=5.1 (from uvicorn[standard]>=0.22.0->-r requirements.txt (line 2))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.5137144Z   Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.5523743Z Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.22.0->-r requirements.txt (line 2))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.5596774Z   Downloading uvloop-0.22.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (4.9 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.6298151Z Collecting watchfiles>=0.13 (from uvicorn[standard]>=0.22.0->-r requirements.txt (line 2))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.6372352Z   Downloading watchfiles-1.1.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.7202002Z Collecting websockets>=10.4 (from uvicorn[standard]>=0.22.0->-r requirements.txt (line 2))
+test (3.11)	Install dependencies	2026-02-15T18:00:37.7276838Z   Downloading websockets-16.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.7458170Z Downloading sqlmodel-0.0.32-py3-none-any.whl (27 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.7549304Z Downloading sqlalchemy-2.0.46-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.3 MB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.9165735Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 3.3/3.3 MB 22.6 MB/s  0:00:00
+test (3.11)	Install dependencies	2026-02-15T18:00:37.9239194Z Downloading fastapi-0.129.0-py3-none-any.whl (102 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.9346979Z Downloading starlette-0.52.1-py3-none-any.whl (74 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.9445746Z Downloading anyio-4.12.1-py3-none-any.whl (113 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.9554359Z Downloading uvicorn-0.40.0-py3-none-any.whl (68 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.9650434Z Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:37.9853859Z Downloading pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.0320775Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 2.1/2.1 MB 46.0 MB/s  0:00:00
+test (3.11)	Install dependencies	2026-02-15T18:00:38.0393225Z Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.0500216Z Downloading apscheduler-3.11.2-py3-none-any.whl (64 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.0593329Z Downloading alembic-1.18.4-py3-none-any.whl (263 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.0721571Z Downloading openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.0840808Z Downloading python_multipart-0.0.22-py3-none-any.whl (24 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.0931088Z Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1026497Z Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1129391Z Downloading pytest-9.0.2-py3-none-any.whl (374 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1285719Z Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1381137Z Downloading python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1474896Z Downloading passlib-1.7.4-py2.py3-none-any.whl (525 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1595021Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 525.6/525.6 kB 35.1 MB/s  0:00:00
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1668066Z Downloading python_jose-3.5.0-py2.py3-none-any.whl (34 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1760370Z Downloading rsa-4.9.1-py3-none-any.whl (34 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1853316Z Downloading annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.1945121Z Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2036177Z Downloading click-8.3.1-py3-none-any.whl (108 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2134298Z Downloading ecdsa-0.19.1-py2.py3-none-any.whl (150 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2244332Z Downloading greenlet-3.3.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2361880Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 590.3/590.3 kB 44.5 MB/s  0:00:00
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2431643Z Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2528346Z Downloading idna-3.11-py3-none-any.whl (71 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2622107Z Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2713258Z Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2803526Z Downloading packaging-26.0-py3-none-any.whl (74 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.2896218Z Downloading bcrypt-5.0.0-cp39-abi3-manylinux_2_34_x86_64.whl (278 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.3016825Z Downloading pyasn1-0.6.2-py3-none-any.whl (83 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.3111634Z Downloading pygments-2.19.2-py3-none-any.whl (1.2 MB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.3316830Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 1.2/1.2 MB 57.4 MB/s  0:00:00
+test (3.11)	Install dependencies	2026-02-15T18:00:38.3387923Z Downloading cryptography-46.0.5-cp311-abi3-manylinux_2_34_x86_64.whl (4.5 MB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.3900590Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 4.5/4.5 MB 88.1 MB/s  0:00:00
+test (3.11)	Install dependencies	2026-02-15T18:00:38.3973768Z Downloading cffi-2.0.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (215 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.4078010Z Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.4169693Z Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.4264443Z Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.4363364Z Downloading tzlocal-5.3.1-py3-none-any.whl (18 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.4456663Z Downloading httptools-0.7.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (456 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.4583727Z Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.4691865Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 806.6/806.6 kB 66.2 MB/s  0:00:00
+test (3.11)	Install dependencies	2026-02-15T18:00:38.4767724Z Downloading uvloop-0.22.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.8 MB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.5164627Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 3.8/3.8 MB 107.3 MB/s  0:00:00
+test (3.11)	Install dependencies	2026-02-15T18:00:38.5236390Z Downloading watchfiles-1.1.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (456 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.5371738Z Downloading websockets-16.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (184 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.5476504Z Downloading certifi-2026.1.4-py3-none-any.whl (152 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.5577833Z Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.5672050Z Downloading mako-1.3.10-py3-none-any.whl (78 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.5770466Z Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+test (3.11)	Install dependencies	2026-02-15T18:00:38.6956506Z Installing collected packages: passlib, websockets, uvloop, tzlocal, typing-extensions, six, pyyaml, python-multipart, python-dotenv, pygments, pycparser, pyasn1, pluggy, packaging, MarkupSafe, iniconfig, idna, httptools, h11, greenlet, et-xmlfile, click, certifi, bcrypt, annotated-types, annotated-doc, uvicorn, typing-inspection, SQLAlchemy, rsa, pytest, pydantic-core, openpyxl, Mako, jinja2, httpcore, ecdsa, cffi, apscheduler, anyio, watchfiles, starlette, python-jose, pydantic, httpx, cryptography, alembic, sqlmodel, fastapi
+test (3.11)	Install dependencies	2026-02-15T18:00:43.0563897Z 
+test (3.11)	Install dependencies	2026-02-15T18:00:43.0590846Z Successfully installed Mako-1.3.10 MarkupSafe-3.0.3 SQLAlchemy-2.0.46 alembic-1.18.4 annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.12.1 apscheduler-3.11.2 bcrypt-5.0.0 certifi-2026.1.4 cffi-2.0.0 click-8.3.1 cryptography-46.0.5 ecdsa-0.19.1 et-xmlfile-2.0.0 fastapi-0.129.0 greenlet-3.3.1 h11-0.16.0 httpcore-1.0.9 httptools-0.7.1 httpx-0.28.1 idna-3.11 iniconfig-2.3.0 jinja2-3.1.6 openpyxl-3.1.5 packaging-26.0 passlib-1.7.4 pluggy-1.6.0 pyasn1-0.6.2 pycparser-3.0 pydantic-2.12.5 pydantic-core-2.41.5 pygments-2.19.2 pytest-9.0.2 python-dotenv-1.2.1 python-jose-3.5.0 python-multipart-0.0.22 pyyaml-6.0.3 rsa-4.9.1 six-1.17.0 sqlmodel-0.0.32 starlette-0.52.1 typing-extensions-4.15.0 typing-inspection-0.4.2 tzlocal-5.3.1 uvicorn-0.40.0 uvloop-0.22.1 watchfiles-1.1.1 websockets-16.0
+test (3.11)	Install dev tools	锘?026-02-15T18:00:43.3804414Z ##[group]Run python -m pip install ruff isort black
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3804816Z [36;1mpython -m pip install ruff isort black[0m
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3855149Z shell: /usr/bin/bash -e {0}
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3855363Z env:
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3855550Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3855861Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3856696Z   CI_READ_TOKEN: ***
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3856971Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3857380Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3857769Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3858123Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3858475Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3858836Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+test (3.11)	Install dev tools	2026-02-15T18:00:43.3859130Z ##[endgroup]
+test (3.11)	Install dev tools	2026-02-15T18:00:44.1706655Z Collecting ruff
+test (3.11)	Install dev tools	2026-02-15T18:00:44.2380436Z   Downloading ruff-0.15.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (26 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.2798996Z Collecting isort
+test (3.11)	Install dev tools	2026-02-15T18:00:44.2873792Z   Downloading isort-7.0.0-py3-none-any.whl.metadata (11 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.3435817Z Collecting black
+test (3.11)	Install dev tools	2026-02-15T18:00:44.3523990Z   Downloading black-26.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (88 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.3760695Z Requirement already satisfied: click>=8.0.0 in /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages (from black) (8.3.1)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.3871038Z Collecting mypy-extensions>=0.4.3 (from black)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.3945829Z   Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.3979978Z Requirement already satisfied: packaging>=22.0 in /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages (from black) (26.0)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.4104843Z Collecting pathspec>=1.0.0 (from black)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.4194800Z   Downloading pathspec-1.0.4-py3-none-any.whl.metadata (13 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.4420301Z Collecting platformdirs>=2 (from black)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.4493606Z   Downloading platformdirs-4.9.1-py3-none-any.whl.metadata (4.7 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.4678507Z Collecting pytokens>=0.3.0 (from black)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.4763821Z   Downloading pytokens-0.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:44.4893326Z Downloading ruff-0.15.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.1 MB)
+test (3.11)	Install dev tools	2026-02-15T18:00:45.2602693Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 11.1/11.1 MB 14.6 MB/s  0:00:00
+test (3.11)	Install dev tools	2026-02-15T18:00:45.2675278Z Downloading isort-7.0.0-py3-none-any.whl (94 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:45.2823781Z Downloading black-26.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.7 MB)
+test (3.11)	Install dev tools	2026-02-15T18:00:45.3025336Z    鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣鈹佲攣 1.7/1.7 MB 85.3 MB/s  0:00:00
+test (3.11)	Install dev tools	2026-02-15T18:00:45.3099038Z Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:45.3188786Z Downloading pathspec-1.0.4-py3-none-any.whl (55 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:45.3283433Z Downloading platformdirs-4.9.1-py3-none-any.whl (21 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:45.3376885Z Downloading pytokens-0.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (260 kB)
+test (3.11)	Install dev tools	2026-02-15T18:00:45.4061633Z Installing collected packages: ruff, pytokens, platformdirs, pathspec, mypy-extensions, isort, black
+test (3.11)	Install dev tools	2026-02-15T18:00:45.7924096Z 
+test (3.11)	Install dev tools	2026-02-15T18:00:45.7948173Z Successfully installed black-26.1.0 isort-7.0.0 mypy-extensions-1.1.0 pathspec-1.0.4 platformdirs-4.9.1 pytokens-0.4.1 ruff-0.15.1
+test (3.11)	Run ruff	锘?026-02-15T18:00:45.8756628Z ##[group]Run ruff check .
+test (3.11)	Run ruff	2026-02-15T18:00:45.8757085Z [36;1mruff check .[0m
+test (3.11)	Run ruff	2026-02-15T18:00:45.8806231Z shell: /usr/bin/bash -e {0}
+test (3.11)	Run ruff	2026-02-15T18:00:45.8806450Z env:
+test (3.11)	Run ruff	2026-02-15T18:00:45.8806632Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Run ruff	2026-02-15T18:00:45.8806932Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Run ruff	2026-02-15T18:00:45.8807757Z   CI_READ_TOKEN: ***
+test (3.11)	Run ruff	2026-02-15T18:00:45.8808025Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run ruff	2026-02-15T18:00:45.8808414Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+test (3.11)	Run ruff	2026-02-15T18:00:45.8808806Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run ruff	2026-02-15T18:00:45.8809154Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run ruff	2026-02-15T18:00:45.8809492Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run ruff	2026-02-15T18:00:45.8810113Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+test (3.11)	Run ruff	2026-02-15T18:00:45.8810577Z ##[endgroup]
+test (3.11)	Run ruff	2026-02-15T18:00:45.8976226Z All checks passed!
+test (3.11)	Run isort check	锘?026-02-15T18:00:45.9013441Z ##[group]Run isort . --check-only
+test (3.11)	Run isort check	2026-02-15T18:00:45.9013728Z [36;1misort . --check-only[0m
+test (3.11)	Run isort check	2026-02-15T18:00:45.9061160Z shell: /usr/bin/bash -e {0}
+test (3.11)	Run isort check	2026-02-15T18:00:45.9061389Z env:
+test (3.11)	Run isort check	2026-02-15T18:00:45.9061580Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Run isort check	2026-02-15T18:00:45.9061878Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Run isort check	2026-02-15T18:00:45.9062546Z   CI_READ_TOKEN: ***
+test (3.11)	Run isort check	2026-02-15T18:00:45.9062814Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run isort check	2026-02-15T18:00:45.9063220Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+test (3.11)	Run isort check	2026-02-15T18:00:45.9063619Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run isort check	2026-02-15T18:00:45.9063973Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run isort check	2026-02-15T18:00:45.9064338Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run isort check	2026-02-15T18:00:45.9064697Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+test (3.11)	Run isort check	2026-02-15T18:00:45.9064994Z ##[endgroup]
+test (3.11)	Run isort check	2026-02-15T18:00:46.0768613Z Skipped 1 files
+test (3.11)	Run black check	锘?026-02-15T18:00:46.0939236Z ##[group]Run black --check .
+test (3.11)	Run black check	2026-02-15T18:00:46.0939534Z [36;1mblack --check .[0m
+test (3.11)	Run black check	2026-02-15T18:00:46.0989542Z shell: /usr/bin/bash -e {0}
+test (3.11)	Run black check	2026-02-15T18:00:46.0990006Z env:
+test (3.11)	Run black check	2026-02-15T18:00:46.0990213Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Run black check	2026-02-15T18:00:46.0990530Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Run black check	2026-02-15T18:00:46.0991218Z   CI_READ_TOKEN: ***
+test (3.11)	Run black check	2026-02-15T18:00:46.0991505Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run black check	2026-02-15T18:00:46.0991957Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+test (3.11)	Run black check	2026-02-15T18:00:46.0992368Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run black check	2026-02-15T18:00:46.0992741Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run black check	2026-02-15T18:00:46.0993108Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run black check	2026-02-15T18:00:46.0993462Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+test (3.11)	Run black check	2026-02-15T18:00:46.0993798Z ##[endgroup]
+test (3.11)	Run black check	2026-02-15T18:00:46.8135204Z All done! 鉁?馃嵃 鉁?test (3.11)	Run black check	2026-02-15T18:00:46.8135880Z 32 files would be left unchanged.
+test (3.11)	Prepare DB directory	锘?026-02-15T18:00:46.8439610Z ##[group]Run mkdir -p data
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8440173Z [36;1mmkdir -p data[0m
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8488211Z shell: /usr/bin/bash -e {0}
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8488441Z env:
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8488628Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8488936Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8489631Z   CI_READ_TOKEN: ***
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8490190Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8490605Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8491019Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8491385Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8491735Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8492099Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+test (3.11)	Prepare DB directory	2026-02-15T18:00:46.8492406Z ##[endgroup]
+test (3.11)	Run Alembic migrations	锘?026-02-15T18:00:46.8615099Z ##[group]Run # Ensure migrations are applied from the first revision so tables are created.
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8615757Z [36;1m# Ensure migrations are applied from the first revision so tables are created.[0m
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8616159Z [36;1malembic upgrade head[0m
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8660592Z shell: /usr/bin/bash -e {0}
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8660822Z env:
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8661010Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8661310Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8661998Z   CI_READ_TOKEN: ***
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8662273Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8662680Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8663078Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8663427Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8663768Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8664162Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:46.8664459Z ##[endgroup]
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:47.4395568Z INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:47.4396425Z INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:47.4459428Z INFO  [alembic.runtime.migration] Running upgrade  -> 0001_create_core_tables, create core tables
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:47.4634693Z INFO  [alembic.runtime.migration] Running upgrade 0001_create_core_tables -> 0002_add_unit_remark, add unit.remark column
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:47.4657783Z INFO  [alembic.runtime.migration] Running upgrade 0001_create_core_tables -> 0002_add_bill_fields, add bill/company/community fields and charge_code
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:47.4713704Z INFO  [alembic.runtime.migration] Running upgrade  -> 0001_add_payment, add payment table
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:47.4759115Z INFO  [alembic.runtime.migration] Running upgrade 0001_add_payment, 0002_add_bill_fields, 0002_add_unit_remark -> 0003_merge_heads, merge heads for PR A
+test (3.11)	Run Alembic migrations	2026-02-15T18:00:47.4777916Z INFO  [alembic.runtime.migration] Running upgrade 0003_merge_heads -> 0004_add_meter_unique, add unique constraint for meter (unit_id, kind, slot)
+test (3.11)	Run tests	锘?026-02-15T18:00:47.5601310Z ##[group]Run pytest -q
+test (3.11)	Run tests	2026-02-15T18:00:47.5601577Z [36;1mpytest -q[0m
+test (3.11)	Run tests	2026-02-15T18:00:47.5649607Z shell: /usr/bin/bash -e {0}
+test (3.11)	Run tests	2026-02-15T18:00:47.5650092Z env:
+test (3.11)	Run tests	2026-02-15T18:00:47.5650324Z   DATABASE_URL: sqlite:///./data/app.db
+test (3.11)	Run tests	2026-02-15T18:00:47.5650635Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+test (3.11)	Run tests	2026-02-15T18:00:47.5651394Z   CI_READ_TOKEN: ***
+test (3.11)	Run tests	2026-02-15T18:00:47.5651665Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run tests	2026-02-15T18:00:47.5652064Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+test (3.11)	Run tests	2026-02-15T18:00:47.5652482Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run tests	2026-02-15T18:00:47.5652843Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run tests	2026-02-15T18:00:47.5653203Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+test (3.11)	Run tests	2026-02-15T18:00:47.5653554Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+test (3.11)	Run tests	2026-02-15T18:00:47.5653850Z ##[endgroup]
+test (3.11)	Run tests	2026-02-15T18:00:49.5079263Z ............                                                             [100%]
+test (3.11)	Run tests	2026-02-15T18:00:49.5080294Z =============================== warnings summary ===============================
+test (3.11)	Run tests	2026-02-15T18:00:49.5081151Z ../../../../../opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/passlib/utils/__init__.py:854
+test (3.11)	Run tests	2026-02-15T18:00:49.5082702Z   /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+test (3.11)	Run tests	2026-02-15T18:00:49.5083866Z     from crypt import crypt as _crypt
+test (3.11)	Run tests	2026-02-15T18:00:49.5084130Z 
+test (3.11)	Run tests	2026-02-15T18:00:49.5084236Z app/main.py:47
+test (3.11)	Run tests	2026-02-15T18:00:49.5084725Z   /home/runner/work/Apartment/Apartment/app/main.py:47: DeprecationWarning: 
+test (3.11)	Run tests	2026-02-15T18:00:49.5085859Z           on_event is deprecated, use lifespan event handlers instead.
+test (3.11)	Run tests	2026-02-15T18:00:49.5086347Z   
+test (3.11)	Run tests	2026-02-15T18:00:49.5086599Z           Read more about it in the
+test (3.11)	Run tests	2026-02-15T18:00:49.5087224Z           [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+test (3.11)	Run tests	2026-02-15T18:00:49.5087860Z           
+test (3.11)	Run tests	2026-02-15T18:00:49.5088132Z     @app.on_event("startup")
+test (3.11)	Run tests	2026-02-15T18:00:49.5088363Z 
+test (3.11)	Run tests	2026-02-15T18:00:49.5088849Z ../../../../../opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/fastapi/applications.py:4573
+test (3.11)	Run tests	2026-02-15T18:00:49.5090285Z   /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/fastapi/applications.py:4573: DeprecationWarning: 
+test (3.11)	Run tests	2026-02-15T18:00:49.5091326Z           on_event is deprecated, use lifespan event handlers instead.
+test (3.11)	Run tests	2026-02-15T18:00:49.5091798Z   
+test (3.11)	Run tests	2026-02-15T18:00:49.5092041Z           Read more about it in the
+test (3.11)	Run tests	2026-02-15T18:00:49.5092647Z           [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+test (3.11)	Run tests	2026-02-15T18:00:49.5093262Z           
+test (3.11)	Run tests	2026-02-15T18:00:49.5093539Z     return self.router.on_event(event_type)
+test (3.11)	Run tests	2026-02-15T18:00:49.5093825Z 
+test (3.11)	Run tests	2026-02-15T18:00:49.5094117Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+test (3.11)	Run tests	2026-02-15T18:00:49.5094703Z 12 passed, 3 warnings in 1.22s
+test (3.11)	Post Set up Python	锘?026-02-15T18:00:49.6304425Z Post job cleanup.
+test (3.11)	Post Checkout	锘?026-02-15T18:00:49.7977531Z Post job cleanup.
+test (3.11)	Post Checkout	2026-02-15T18:00:49.8946420Z [command]/usr/bin/git version
+test (3.11)	Post Checkout	2026-02-15T18:00:49.8990796Z git version 2.52.0
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9036461Z Temporarily overriding HOME='/home/runner/work/_temp/0d10c7ce-7f3b-4413-b36f-491b178e0485' before making global git config changes
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9037808Z Adding repository directory to the temporary git global config as a safe directory
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9043192Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Apartment/Apartment
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9080625Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9114667Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9365155Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9386837Z http.https://github.com/.extraheader
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9399575Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9432683Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9667868Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+test (3.11)	Post Checkout	2026-02-15T18:00:49.9699960Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+test (3.11)	Complete job	锘?026-02-15T18:00:50.0047698Z Cleaning up orphan processes

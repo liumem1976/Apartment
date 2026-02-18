@@ -1,11 +1,31 @@
-.venv
+/.venv
 data/*.db
 data/*.db-*
+
+# Byte-compiled / cached files
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# VS Code
 .vscode/
+
+# Pytest cache
+.pytest_cache/
+
+# Environment
 .env
 .env.*
+
+# macOS
 .DS_Store
-.idea/.venv/
+
+# IDEs
+.idea/
+
+# Data
 data/
