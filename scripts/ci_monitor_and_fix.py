@@ -49,7 +49,7 @@ def find_latest_log():
 
 def git_branch_and_push(branch_name, paths, message):
     try:
-        run(f"git fetch --all")
+        run("git fetch --all")
         run(f"git checkout -b {branch_name}")
     except Exception:
         # branch may already exist locally
