@@ -36,6 +36,8 @@ while ($true) {
 
   gh run view $id --repo $repo --log | Out-File -FilePath gh_run_$id.log -Encoding utf8
   $log = Get-Content gh_run_$id.log -Raw
+  Write-Output "Running CI auto-fix checker"
+  & python .\scripts\ci_monitor_and_fix.py
   if ($log -match "pytest" -or $log -match "collecting" -or $log -match "Traceback" -or $log -match "FieldInfo.*in_") {
     Write-Output "MATCH_FOUND $id"
     break
