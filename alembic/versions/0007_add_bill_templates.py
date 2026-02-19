@@ -22,9 +22,13 @@ def upgrade() -> None:
         sa.Column("id", sa.Integer(), primary_key=True),
         sa.Column("name", sa.String(), nullable=False),
         sa.Column("description", sa.Text(), nullable=True),
-        sa.Column("is_active", sa.Boolean(), nullable=False, server_default=sa.text("1")),
+        sa.Column(
+            "is_active", sa.Boolean(), nullable=False, server_default=sa.text("1")
+        ),
         sa.Column("created_by", sa.Integer(), nullable=True),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("updated_at", sa.DateTime(), nullable=True),
     )
 
@@ -32,9 +36,21 @@ def upgrade() -> None:
     op.create_table(
         "billtemplateline",
         sa.Column("id", sa.Integer(), primary_key=True),
-        sa.Column("template_id", sa.Integer(), sa.ForeignKey("billtemplate.id"), nullable=False),
-        sa.Column("charge_item_id", sa.Integer(), sa.ForeignKey("chargeitem.id"), nullable=False),
-        sa.Column("is_required", sa.Boolean(), nullable=False, server_default=sa.text("0")),
+        sa.Column(
+            "template_id",
+            sa.Integer(),
+            sa.ForeignKey("billtemplate.id"),
+            nullable=False,
+        ),
+        sa.Column(
+            "charge_item_id",
+            sa.Integer(),
+            sa.ForeignKey("chargeitem.id"),
+            nullable=False,
+        ),
+        sa.Column(
+            "is_required", sa.Boolean(), nullable=False, server_default=sa.text("0")
+        ),
         sa.Column("sort_order", sa.Integer(), nullable=False, server_default="0"),
         sa.Column("note", sa.Text(), nullable=True),
     )
