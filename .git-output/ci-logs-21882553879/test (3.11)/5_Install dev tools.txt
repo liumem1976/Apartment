@@ -1,0 +1,42 @@
+﻿2026-02-10T21:11:51.2292606Z ##[group]Run python -m pip install ruff isort black
+2026-02-10T21:11:51.2293006Z [36;1mpython -m pip install ruff isort black[0m
+2026-02-10T21:11:51.2327246Z shell: /usr/bin/bash -e {0}
+2026-02-10T21:11:51.2327677Z env:
+2026-02-10T21:11:51.2327884Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:51.2328200Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:51.2328950Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:51.2329235Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:51.2330139Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-10T21:11:51.2330589Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:51.2330970Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:51.2331340Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:51.2331723Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-10T21:11:51.2332036Z ##[endgroup]
+2026-02-10T21:11:51.9636235Z Collecting ruff
+2026-02-10T21:11:52.0192940Z   Downloading ruff-0.15.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (26 kB)
+2026-02-10T21:11:52.0588028Z Collecting isort
+2026-02-10T21:11:52.0622746Z   Downloading isort-7.0.0-py3-none-any.whl.metadata (11 kB)
+2026-02-10T21:11:52.1102784Z Collecting black
+2026-02-10T21:11:52.1138442Z   Downloading black-26.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (88 kB)
+2026-02-10T21:11:52.1353317Z Requirement already satisfied: click>=8.0.0 in /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages (from black) (8.3.1)
+2026-02-10T21:11:52.1441699Z Collecting mypy-extensions>=0.4.3 (from black)
+2026-02-10T21:11:52.1475657Z   Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+2026-02-10T21:11:52.1510167Z Requirement already satisfied: packaging>=22.0 in /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages (from black) (26.0)
+2026-02-10T21:11:52.1604187Z Collecting pathspec>=1.0.0 (from black)
+2026-02-10T21:11:52.1649936Z   Downloading pathspec-1.0.4-py3-none-any.whl.metadata (13 kB)
+2026-02-10T21:11:52.1825791Z Collecting platformdirs>=2 (from black)
+2026-02-10T21:11:52.1866917Z   Downloading platformdirs-4.5.1-py3-none-any.whl.metadata (12 kB)
+2026-02-10T21:11:52.2046013Z Collecting pytokens>=0.3.0 (from black)
+2026-02-10T21:11:52.2077263Z   Downloading pytokens-0.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+2026-02-10T21:11:52.2168364Z Downloading ruff-0.15.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.1 MB)
+2026-02-10T21:11:52.2824396Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.1/11.1 MB 182.4 MB/s  0:00:00
+2026-02-10T21:11:52.2859532Z Downloading isort-7.0.0-py3-none-any.whl (94 kB)
+2026-02-10T21:11:52.2912842Z Downloading black-26.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.7 MB)
+2026-02-10T21:11:52.3053352Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 157.8 MB/s  0:00:00
+2026-02-10T21:11:52.3084540Z Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+2026-02-10T21:11:52.3137093Z Downloading pathspec-1.0.4-py3-none-any.whl (55 kB)
+2026-02-10T21:11:52.3194875Z Downloading platformdirs-4.5.1-py3-none-any.whl (18 kB)
+2026-02-10T21:11:52.3246981Z Downloading pytokens-0.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (260 kB)
+2026-02-10T21:11:52.3936069Z Installing collected packages: ruff, pytokens, platformdirs, pathspec, mypy-extensions, isort, black
+2026-02-10T21:11:52.7788927Z 
+2026-02-10T21:11:52.7813030Z Successfully installed black-26.1.0 isort-7.0.0 mypy-extensions-1.1.0 pathspec-1.0.4 platformdirs-4.5.1 pytokens-0.4.1 ruff-0.15.0

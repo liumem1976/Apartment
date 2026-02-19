@@ -7,7 +7,7 @@ from typing import List, Optional
 
 from sqlalchemy import Column, Integer, Numeric, Text, UniqueConstraint
 from sqlalchemy.orm import relationship as sa_relationship
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship, Session as SQLSession, SQLModel, select
 
 
 class BillStatus(str, Enum):
@@ -97,6 +97,10 @@ class Lease(SQLModel, table=True):
 
 
 class Meter(SQLModel, table=True):
+    __table_args__ = (
+        UniqueConstraint("unit_id", "kind", "slot", name="uq_meter_unit_kind_slot"),
+    )
+
     id: Optional[int] = Field(default=None, primary_key=True)
     unit_id: int = Field(foreign_key="unit.id")
     kind: str = Field(nullable=False)  # cold_water/hot_water
@@ -155,7 +159,6 @@ class Bill(SQLModel, table=True):
 
 
 class BillLine(SQLModel, table=True):
-
     id: Optional[int] = Field(default=None, primary_key=True)
     bill_id: int = Field(foreign_key="bill.id")
     item_code: str = Field(nullable=False)
@@ -216,3 +219,34 @@ class ImportBatch(SQLModel, table=True):
     finished_at: Optional[datetime] = None
     result: Optional[str] = Field(default=None, sa_column=Column(Text))
     errors: Optional[str] = Field(default=None, sa_column=Column(Text))
+
+
+def assert_no_lease_overlap(
+    session: SQLSession,
+    unit_id: int,
+    start_date,
+    end_date,
+    exclude_id: Optional[int] = None,
+) -> None:
+    """Raise ValueError if a lease for the same unit overlaps the given period.
+
+    Overlap definition: existing.start <= end_date and (existing.end is None or existing.end >= start_date)
+    Treat None as open-ended.
+    """
+    # Fetch existing leases for the unit (optionally excluding one id).
+    stmt = select(Lease).where(Lease.unit_id == unit_id)
+    if exclude_id is not None:
+        stmt = stmt.where(Lease.id != exclude_id)
+
+    existing = session.exec(stmt).all()
+    # Normalize open-ended dates by mapping None -> extreme values so comparisons are simple.
+    for ex in existing:
+        ex_start = ex.start_date
+        ex_end = ex.end_date or date.max
+
+        sd = start_date or date.min
+        ed = end_date or date.max
+
+        # Overlap exists unless one interval is strictly before the other.
+        if not (ex_end < sd or ed < ex_start):
+            raise ValueError(f"Lease overlaps existing lease id={ex.id}")

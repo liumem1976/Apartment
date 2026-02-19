@@ -1,0 +1,40 @@
+﻿2026-02-10T21:11:55.0711665Z ##[group]Run pytest -q
+2026-02-10T21:11:55.0712114Z [36;1mpytest -q[0m
+2026-02-10T21:11:55.0759190Z shell: /usr/bin/bash -e {0}
+2026-02-10T21:11:55.0759789Z env:
+2026-02-10T21:11:55.0760116Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:55.0760641Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:55.0762102Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:55.0762642Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:55.0763388Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-10T21:11:55.0764347Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:55.0765026Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:55.0765674Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:55.0766357Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-10T21:11:55.0766907Z ##[endgroup]
+2026-02-10T21:11:56.9712369Z .........                                                                [100%]
+2026-02-10T21:11:56.9713258Z =============================== warnings summary ===============================
+2026-02-10T21:11:56.9714330Z ../../../../../opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/passlib/utils/__init__.py:854
+2026-02-10T21:11:56.9716223Z   /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+2026-02-10T21:11:56.9717226Z     from crypt import crypt as _crypt
+2026-02-10T21:11:56.9717453Z 
+2026-02-10T21:11:56.9717554Z app/main.py:47
+2026-02-10T21:11:56.9717986Z   /home/runner/work/Apartment/Apartment/app/main.py:47: DeprecationWarning: 
+2026-02-10T21:11:56.9718500Z           on_event is deprecated, use lifespan event handlers instead.
+2026-02-10T21:11:56.9718868Z   
+2026-02-10T21:11:56.9719047Z           Read more about it in the
+2026-02-10T21:11:56.9719491Z           [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2026-02-10T21:11:56.9720172Z           
+2026-02-10T21:11:56.9720364Z     @app.on_event("startup")
+2026-02-10T21:11:56.9720527Z 
+2026-02-10T21:11:56.9720866Z ../../../../../opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/fastapi/applications.py:4579
+2026-02-10T21:11:56.9721701Z   /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/fastapi/applications.py:4579: DeprecationWarning: 
+2026-02-10T21:11:56.9722378Z           on_event is deprecated, use lifespan event handlers instead.
+2026-02-10T21:11:56.9722720Z   
+2026-02-10T21:11:56.9722895Z           Read more about it in the
+2026-02-10T21:11:56.9723337Z           [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2026-02-10T21:11:56.9724165Z           
+2026-02-10T21:11:56.9724370Z     return self.router.on_event(event_type)
+2026-02-10T21:11:56.9724583Z 
+2026-02-10T21:11:56.9724793Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2026-02-10T21:11:56.9725268Z 9 passed, 3 warnings in 1.16s

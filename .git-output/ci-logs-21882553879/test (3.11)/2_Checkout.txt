@@ -1,0 +1,76 @@
+﻿2026-02-10T21:11:39.4390462Z ##[group]Run actions/checkout@v4
+2026-02-10T21:11:39.4391397Z with:
+2026-02-10T21:11:39.4391824Z   repository: liumem1976/Apartment
+2026-02-10T21:11:39.4392519Z   token: ***
+2026-02-10T21:11:39.4392909Z   ssh-strict: true
+2026-02-10T21:11:39.4393290Z   ssh-user: git
+2026-02-10T21:11:39.4393690Z   persist-credentials: true
+2026-02-10T21:11:39.4394127Z   clean: true
+2026-02-10T21:11:39.4394512Z   sparse-checkout-cone-mode: true
+2026-02-10T21:11:39.4394993Z   fetch-depth: 1
+2026-02-10T21:11:39.4395376Z   fetch-tags: false
+2026-02-10T21:11:39.4395784Z   show-progress: true
+2026-02-10T21:11:39.4396197Z   lfs: false
+2026-02-10T21:11:39.4396564Z   submodules: false
+2026-02-10T21:11:39.4396972Z   set-safe-directory: true
+2026-02-10T21:11:39.4397618Z env:
+2026-02-10T21:11:39.4398029Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:39.4398614Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:39.4400017Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:39.4400590Z ##[endgroup]
+2026-02-10T21:11:39.5514420Z Syncing repository: liumem1976/Apartment
+2026-02-10T21:11:39.5516157Z ##[group]Getting Git version info
+2026-02-10T21:11:39.5516878Z Working directory is '/home/runner/work/Apartment/Apartment'
+2026-02-10T21:11:39.5517800Z [command]/usr/bin/git version
+2026-02-10T21:11:39.5596156Z git version 2.52.0
+2026-02-10T21:11:39.5623003Z ##[endgroup]
+2026-02-10T21:11:39.5637645Z Temporarily overriding HOME='/home/runner/work/_temp/40e12ba5-17f1-4938-b2ef-01fc70827535' before making global git config changes
+2026-02-10T21:11:39.5639012Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-10T21:11:39.5651532Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:39.5695732Z Deleting the contents of '/home/runner/work/Apartment/Apartment'
+2026-02-10T21:11:39.5699316Z ##[group]Initializing the repository
+2026-02-10T21:11:39.5703944Z [command]/usr/bin/git init /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:39.5833240Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-10T21:11:39.5835814Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-10T21:11:39.5837738Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-10T21:11:39.5839248Z hint: call:
+2026-02-10T21:11:39.5840027Z hint:
+2026-02-10T21:11:39.5840611Z hint: 	git config --global init.defaultBranch <name>
+2026-02-10T21:11:39.5841306Z hint:
+2026-02-10T21:11:39.5841997Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-10T21:11:39.5843007Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-10T21:11:39.5843697Z hint:
+2026-02-10T21:11:39.5844222Z hint: 	git branch -m <name>
+2026-02-10T21:11:39.5844930Z hint:
+2026-02-10T21:11:39.5845573Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-10T21:11:39.5846512Z Initialized empty Git repository in /home/runner/work/Apartment/Apartment/.git/
+2026-02-10T21:11:39.5850774Z [command]/usr/bin/git remote add origin https://github.com/liumem1976/Apartment
+2026-02-10T21:11:39.5883811Z ##[endgroup]
+2026-02-10T21:11:39.5884544Z ##[group]Disabling automatic garbage collection
+2026-02-10T21:11:39.5887750Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-10T21:11:39.5915971Z ##[endgroup]
+2026-02-10T21:11:39.5916652Z ##[group]Setting up auth
+2026-02-10T21:11:39.5922757Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-10T21:11:39.5953600Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-10T21:11:39.6327362Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-10T21:11:39.6362339Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-10T21:11:39.6611556Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-10T21:11:39.6649024Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-10T21:11:39.6886475Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-10T21:11:39.6920984Z ##[endgroup]
+2026-02-10T21:11:39.6921797Z ##[group]Fetching the repository
+2026-02-10T21:11:39.6929183Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +21cadbdb645008ccf6c7f1434bed1e218b2e2eff:refs/remotes/origin/main
+2026-02-10T21:11:40.3899336Z From https://github.com/liumem1976/Apartment
+2026-02-10T21:11:40.3901668Z  * [new ref]         21cadbdb645008ccf6c7f1434bed1e218b2e2eff -> origin/main
+2026-02-10T21:11:40.3937684Z ##[endgroup]
+2026-02-10T21:11:40.3939102Z ##[group]Determining the checkout info
+2026-02-10T21:11:40.3941147Z ##[endgroup]
+2026-02-10T21:11:40.3944978Z [command]/usr/bin/git sparse-checkout disable
+2026-02-10T21:11:40.3990890Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-10T21:11:40.4024224Z ##[group]Checking out the ref
+2026-02-10T21:11:40.4027535Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-02-10T21:11:40.4332737Z Switched to a new branch 'main'
+2026-02-10T21:11:40.4334322Z branch 'main' set up to track 'origin/main'.
+2026-02-10T21:11:40.4343272Z ##[endgroup]
+2026-02-10T21:11:40.4382710Z [command]/usr/bin/git log -1 --format=%H
+2026-02-10T21:11:40.4407359Z 21cadbdb645008ccf6c7f1434bed1e218b2e2eff

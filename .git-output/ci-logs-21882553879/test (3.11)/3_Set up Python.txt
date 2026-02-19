@@ -1,0 +1,15 @@
+﻿2026-02-10T21:11:40.4732631Z ##[group]Run actions/setup-python@v4
+2026-02-10T21:11:40.4733902Z with:
+2026-02-10T21:11:40.4734727Z   python-version: 3.11
+2026-02-10T21:11:40.4735682Z   check-latest: false
+2026-02-10T21:11:40.4736963Z   token: ***
+2026-02-10T21:11:40.4737858Z   update-environment: true
+2026-02-10T21:11:40.4739371Z   allow-prereleases: false
+2026-02-10T21:11:40.4740662Z env:
+2026-02-10T21:11:40.4741634Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:40.4743160Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:40.4745784Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:40.4746701Z ##[endgroup]
+2026-02-10T21:11:40.6541083Z ##[group]Installed versions
+2026-02-10T21:11:40.6660728Z Successfully set up CPython (3.11.14)
+2026-02-10T21:11:40.6662898Z ##[endgroup]

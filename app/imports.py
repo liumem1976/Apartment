@@ -22,9 +22,10 @@ def _read_csv(upload: UploadFile):
     text = TextIOWrapper(upload.file, encoding="utf-8-sig")
     reader = csv.DictReader(text)
     for i, row in enumerate(reader, start=2):
-        yield i, {
-            k.strip(): (v.strip() if v is not None else "") for k, v in row.items()
-        }
+        yield (
+            i,
+            {k.strip(): (v.strip() if v is not None else "") for k, v in row.items()},
+        )
 
 
 def import_rooms_file(upload: UploadFile) -> Dict[str, int]:
@@ -287,9 +288,13 @@ def _read_csv_from_path(path: str):
         text = TextIOWrapper(fh, encoding="utf-8-sig")
         reader = csv.DictReader(text)
         for i, row in enumerate(reader, start=2):
-            yield i, {
-                k.strip(): (v.strip() if v is not None else "") for k, v in row.items()
-            }
+            yield (
+                i,
+                {
+                    k.strip(): (v.strip() if v is not None else "")
+                    for k, v in row.items()
+                },
+            )
 
 
 def process_rooms_path(path: str) -> Dict[str, int]:

@@ -1,0 +1,20 @@
+﻿Task B: domain models  最小变更实现与本地测试说明
+
+变更摘要:
+- 添加 Meter 唯一约束（alembic 0004）并在模型中声明 UniqueConstraint。
+- 新增/更新测试: meter 唯一性测试、账单字段精度测试、以及新增的租约重叠检测测试 (	ests/test_lease_overlap.py)。
+- 导出并暴露工具函数 ssert_no_lease_overlap 以便在业务层校验租约冲突。
+- CI/workflow: 修复 linter 调用并在 CI 中设置 PYTHONPATH，增加 etch-ci-logs 工作流用于诊断。
+
+本地测试结果:
+- 单独运行新增的租约重叠测试: 通过 (1 passed).
+- 运行完整测试套件时在测试收集阶段遇到依赖/版本不兼容问题，导致中断:
+  错误: AttributeError: 'FieldInfo' object has no attribute 'in_' (触发于 FastAPI/FastAPI 依赖解析)
+  可能原因: Pydantic 版本不匹配（代码基于 pydantic v1，但当前环境为 pydantic v2）。
+
+下一步建议:
+- 在 CI 上运行完整测试以确认（CI 环境可能已固定依赖）。
+- 或在本地临时降级/固定 pydantic 到 v1.x 以便本地复现并修复错误，或逐步将代码迁移到 pydantic v2（需评估工作量）。
+
+分支: task-b-domain-models
+已推送并创建 PR (#4)。请审阅以上变更与测试说明。

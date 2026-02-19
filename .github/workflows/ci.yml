@@ -50,7 +50,7 @@ jobs:
 
       - name: Run Alembic migrations
         run: |
-          alembic stamp 0003_merge_heads || true
+          # Ensure migrations are applied from the first revision so tables are created.
           alembic upgrade head
 
       - name: Run tests

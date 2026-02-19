@@ -1,0 +1,14 @@
+﻿2026-02-10T21:11:53.7326672Z ##[group]Run mkdir -p data
+2026-02-10T21:11:53.7326965Z [36;1mmkdir -p data[0m
+2026-02-10T21:11:53.7358316Z shell: /usr/bin/bash -e {0}
+2026-02-10T21:11:53.7358561Z env:
+2026-02-10T21:11:53.7358751Z   DATABASE_URL: sqlite:///./data/app.db
+2026-02-10T21:11:53.7359057Z   PYTHONPATH: /home/runner/work/Apartment/Apartment
+2026-02-10T21:11:53.7359994Z   CI_READ_TOKEN: ***
+2026-02-10T21:11:53.7360278Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.7360685Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-10T21:11:53.7361094Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.7361455Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.7361809Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-10T21:11:53.7362173Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-10T21:11:53.7362486Z ##[endgroup]
