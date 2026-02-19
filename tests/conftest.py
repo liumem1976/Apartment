@@ -1,11 +1,10 @@
 import os
-import shutil
 from pathlib import Path
+import shutil
 
-import pytest
 from alembic import command
 from alembic.config import Config
-
+import pytest
 
 # Module-level setup: ensure env var is set before test modules import `app`.
 data_dir = Path("./data")

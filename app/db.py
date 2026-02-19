@@ -1,7 +1,8 @@
+import os
+
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from sqlmodel import SQLModel, create_engine
-import os
 
 # Allow overriding the database URL via environment for tests/CI
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./data/app.db")
