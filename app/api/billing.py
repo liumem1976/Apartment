@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 
 from ..auth import require_role, require_any_role
+from ..billing import compute_billing_cycle
 from ..db import engine
 from ..models import Bill, BillLine, BillTemplate, BillTemplateLine, ChargeItem
 from ..schemas_billing import (
@@ -13,7 +14,6 @@ from ..schemas_billing import (
     BillTemplateRead,
     BillTemplateUpdate,
 )
-from ..billing import compute_billing_cycle
 
 
 router = APIRouter(prefix="/api/v1/templates", tags=["billing"])
