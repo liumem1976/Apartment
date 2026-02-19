@@ -19,6 +19,10 @@ from .domain import (
     User,
     assert_no_lease_overlap,
 )
+from .billing import (
+    BillTemplate,
+    BillTemplateLine,
+)
 
 __all__ = [
     "Company",
@@ -38,6 +42,8 @@ __all__ = [
     "AuditLog",
     "AppConfig",
     "ImportBatch",
+    "BillTemplate",
+    "BillTemplateLine",
     "BillStatus",
     "assert_no_lease_overlap",
 ]
