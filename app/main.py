@@ -35,8 +35,12 @@ from .billing import generate_batch_for_company, generate_bill_for_unit
 from .db import engine, init_db
 from .imports import process_import_batch
 from .models import AuditLog, Bill, BillLine, ImportBatch, User
+from .api.billing import router as billing_router
 
 app = FastAPI(title="LAN Apartment Billing System")
+
+# include billing API
+app.include_router(billing_router)
 
 templates = Jinja2Templates(directory="app/templates")
 
