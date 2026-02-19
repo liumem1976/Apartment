@@ -1,9 +1,9 @@
+from datetime import datetime
 import json
 import os
 import shutil
-import uuid
-from datetime import datetime
 from typing import Optional
+import uuid
 
 from fastapi import (
     BackgroundTasks,
@@ -20,6 +20,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
 
+from .api.billing import router as billing_router
 from .auth import (
     SESSION_COOKIE_NAME,
     authenticate_user,
@@ -35,7 +36,6 @@ from .billing import generate_batch_for_company, generate_bill_for_unit
 from .db import engine, init_db
 from .imports import process_import_batch
 from .models import AuditLog, Bill, BillLine, ImportBatch, User
-from .api.billing import router as billing_router
 
 app = FastAPI(title="LAN Apartment Billing System")
 

@@ -3,23 +3,22 @@ from datetime import date
 from fastapi.testclient import TestClient
 from sqlmodel import Session, select
 
+from app.auth import get_password_hash
 from app.db import engine
 from app.main import app
-from app.auth import get_password_hash
 from app.models import (
-    User,
-    ChargeItem,
-    BillTemplate,
-    BillTemplateLine,
-    Company,
-    Community,
-    Building,
-    Unit,
-    Lease,
     Bill,
     BillLine,
+    BillTemplate,
+    BillTemplateLine,
+    Building,
+    ChargeItem,
+    Community,
+    Company,
+    Lease,
+    Unit,
+    User,
 )
-
 
 client = TestClient(app)
 

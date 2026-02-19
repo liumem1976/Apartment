@@ -5,7 +5,7 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 
-from ..auth import require_role, require_any_role
+from ..auth import require_any_role, require_role
 from ..billing import compute_billing_cycle
 from ..db import engine
 from ..models import Bill, BillLine, BillTemplate, BillTemplateLine, ChargeItem
@@ -14,7 +14,6 @@ from ..schemas_billing import (
     BillTemplateRead,
     BillTemplateUpdate,
 )
-
 
 router = APIRouter(prefix="/api/v1/templates", tags=["billing"])
 
@@ -234,7 +233,7 @@ def instantiate_template(template_id: int, unit_id: int, date: str, current_user
 
         # compute cycle
         # find lease start date for unit
-        from ..models import Lease, Unit, Building, Community, Company
+        from ..models import Building, Community, Company, Lease, Unit
 
         lease = session.exec(select(Lease).where(Lease.unit_id == unit_id)).first()
         if not lease:
