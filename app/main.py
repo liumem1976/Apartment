@@ -20,6 +20,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
 
+from .api.billing import router as billing_router
 from .auth import (
     SESSION_COOKIE_NAME,
     authenticate_user,
@@ -37,6 +38,9 @@ from .imports import process_import_batch
 from .models import AuditLog, Bill, BillLine, ImportBatch, User
 
 app = FastAPI(title="LAN Apartment Billing System")
+
+# include billing API
+app.include_router(billing_router)
 
 templates = Jinja2Templates(directory="app/templates")
 

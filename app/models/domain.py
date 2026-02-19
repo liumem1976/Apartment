@@ -152,6 +152,9 @@ class Bill(SQLModel, table=True):
     frozen_snapshot: Optional[str] = Field(
         default=None, sa_column=Column("frozen_snapshot", Text, nullable=True)
     )
+    template_id: Optional[int] = Field(
+        default=None, sa_column=Column("template_id", Integer, nullable=True)
+    )
     lines: List["BillLine"] = Relationship(
         back_populates="bill",
         sa_relationship=sa_relationship("BillLine", back_populates="bill"),

@@ -1,3 +1,7 @@
+from .billing import (
+    BillTemplate,
+    BillTemplateLine,
+)
 from .domain import (
     Adjustment,
     AppConfig,
@@ -38,6 +42,8 @@ __all__ = [
     "AuditLog",
     "AppConfig",
     "ImportBatch",
+    "BillTemplate",
+    "BillTemplateLine",
     "BillStatus",
     "assert_no_lease_overlap",
 ]
