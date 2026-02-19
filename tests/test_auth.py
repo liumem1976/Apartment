@@ -48,9 +48,15 @@ def test_cookie_login_logout_and_dashboard_rbac():
     # ensure DB initialized
     # create a clerk user
     with Session(engine) as session:
-        existing = session.exec(select(User).where(User.username == "testclerk")).first()
+        existing = session.exec(
+            select(User).where(User.username == "testclerk")
+        ).first()
         if not existing:
-            u = User(username="testclerk", password_hash=get_password_hash("s3cret"), role="clerk")
+            u = User(
+                username="testclerk",
+                password_hash=get_password_hash("s3cret"),
+                role="clerk",
+            )
             session.add(u)
             session.commit()
 
@@ -78,11 +84,19 @@ def test_cookie_login_failed():
     with Session(engine) as session:
         existing = session.exec(select(User).where(User.username == "failuser")).first()
         if not existing:
-            u = User(username="failuser", password_hash=get_password_hash("goodpw"), role="clerk")
+            u = User(
+                username="failuser",
+                password_hash=get_password_hash("goodpw"),
+                role="clerk",
+            )
             session.add(u)
             session.commit()
 
-    r = client.post("/login", data={"username": "failuser", "password": "badpw"}, follow_redirects=False)
+    r = client.post(
+        "/login",
+        data={"username": "failuser", "password": "badpw"},
+        follow_redirects=False,
+    )
     assert r.status_code in (303, 307)
     # no session cookie set
     assert "ap_session" not in client.cookies

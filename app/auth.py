@@ -31,7 +31,9 @@ def _sign_session(payload: str) -> str:
     import hashlib
     import hmac
 
-    sig = hmac.new(SECRET_KEY.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256).hexdigest()
+    sig = hmac.new(
+        SECRET_KEY.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256
+    ).hexdigest()
     return f"{payload}|{sig}"
 
 
@@ -43,7 +45,9 @@ def _unsign_session(token: str) -> Optional[str]:
         payload, sig = token.rsplit("|", 1)
     except Exception:
         return None
-    expected = hmac.new(SECRET_KEY.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256).hexdigest()
+    expected = hmac.new(
+        SECRET_KEY.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256
+    ).hexdigest()
     if not hmac.compare_digest(expected, sig):
         return None
     return payload

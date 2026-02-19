@@ -19,7 +19,9 @@ def upgrade() -> None:
     # Add `is_active` column to `user` table with default True
     op.add_column(
         "user",
-        sa.Column("is_active", sa.Boolean(), nullable=False, server_default=sa.text("1")),
+        sa.Column(
+            "is_active", sa.Boolean(), nullable=False, server_default=sa.text("1")
+        ),
     )
 
 

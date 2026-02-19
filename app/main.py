@@ -120,7 +120,9 @@ def logout(request: Request):
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
-def dashboard(request: Request, current_user: User = Depends(require_role_cookie("clerk"))):
+def dashboard(
+    request: Request, current_user: User = Depends(require_role_cookie("clerk"))
+):
     return templates.TemplateResponse(
         "dashboard.html", {"request": request, "current_user": current_user}
     )

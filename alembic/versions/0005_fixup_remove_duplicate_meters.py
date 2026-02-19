@@ -40,14 +40,12 @@ def upgrade() -> None:
     # The following DELETE is intentionally simple and compatible with SQLite
     # and PostgreSQL. It deletes rows whose id is NOT the minimum id for the
     # (unit_id, kind, slot) group.
-    op.execute(
-        """
+    op.execute("""
         DELETE FROM meter
         WHERE id NOT IN (
             SELECT MIN(id) FROM meter GROUP BY unit_id, kind, slot
         )
-        """
-    )
+        """)
 
 
 def downgrade() -> None:

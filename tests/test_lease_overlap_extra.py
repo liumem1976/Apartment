@@ -49,7 +49,12 @@ def test_adjacent_non_overlap(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease ends on Jan 31
-        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 1, 1), end_date=date(2023, 1, 31))
+        lease = Lease(
+            unit_id=u.id,
+            tenant_id=t.id,
+            start_date=date(2023, 1, 1),
+            end_date=date(2023, 1, 31),
+        )
         s.add(lease)
         s.commit()
 
@@ -60,7 +65,12 @@ def test_adjacent_non_overlap(engine):
 def test_overlap_start_inside(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
-        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 3, 1), end_date=date(2023, 3, 31))
+        lease = Lease(
+            unit_id=u.id,
+            tenant_id=t.id,
+            start_date=date(2023, 3, 1),
+            end_date=date(2023, 3, 31),
+        )
         s.add(lease)
         s.commit()
 
@@ -73,7 +83,9 @@ def test_existing_open_ended(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease has no end_date (open-ended)
-        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 5, 1), end_date=None)
+        lease = Lease(
+            unit_id=u.id, tenant_id=t.id, start_date=date(2023, 5, 1), end_date=None
+        )
         s.add(lease)
         s.commit()
 
@@ -85,19 +97,31 @@ def test_existing_open_ended(engine):
 def test_exclude_id_allows_update(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
-        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 7, 1), end_date=date(2023, 7, 31))
+        lease = Lease(
+            unit_id=u.id,
+            tenant_id=t.id,
+            start_date=date(2023, 7, 1),
+            end_date=date(2023, 7, 31),
+        )
         s.add(lease)
         s.commit()
 
         # updating the same lease (exclude_id) should not raise
-        assert_no_lease_overlap(s, u.id, date(2023, 7, 1), date(2023, 7, 31), exclude_id=lease.id)
+        assert_no_lease_overlap(
+            s, u.id, date(2023, 7, 1), date(2023, 7, 31), exclude_id=lease.id
+        )
 
 
 def test_same_day_start_equals_existing_end_overlap(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease ends on Jan 31
-        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 1, 1), end_date=date(2023, 1, 31))
+        lease = Lease(
+            unit_id=u.id,
+            tenant_id=t.id,
+            start_date=date(2023, 1, 1),
+            end_date=date(2023, 1, 31),
+        )
         s.add(lease)
         s.commit()
 
@@ -110,7 +134,12 @@ def test_new_lease_before_existing_no_overlap(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease starts on March 10
-        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 3, 10), end_date=date(2023, 3, 20))
+        lease = Lease(
+            unit_id=u.id,
+            tenant_id=t.id,
+            start_date=date(2023, 3, 10),
+            end_date=date(2023, 3, 20),
+        )
         s.add(lease)
         s.commit()
 
@@ -122,7 +151,12 @@ def test_cross_month_and_year_non_overlap(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease spans year boundary
-        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 12, 15), end_date=date(2024, 1, 15))
+        lease = Lease(
+            unit_id=u.id,
+            tenant_id=t.id,
+            start_date=date(2023, 12, 15),
+            end_date=date(2024, 1, 15),
+        )
         s.add(lease)
         s.commit()
 
@@ -134,7 +168,12 @@ def test_new_lease_covers_existing(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing short lease
-        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 9, 10), end_date=date(2023, 9, 20))
+        lease = Lease(
+            unit_id=u.id,
+            tenant_id=t.id,
+            start_date=date(2023, 9, 10),
+            end_date=date(2023, 9, 20),
+        )
         s.add(lease)
         s.commit()
 
