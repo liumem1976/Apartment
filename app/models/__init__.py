@@ -1,3 +1,7 @@
+from .billing import (
+    BillTemplate,
+    BillTemplateLine,
+)
 from .domain import (
     Adjustment,
     AppConfig,
@@ -18,10 +22,6 @@ from .domain import (
     Unit,
     User,
     assert_no_lease_overlap,
-)
-from .billing import (
-    BillTemplate,
-    BillTemplateLine,
 )
 
 __all__ = [
