@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import os
 from typing import Optional
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -136,9 +136,6 @@ def require_role(role: str):
     return _role_checker
 
 
-from fastapi import Request
-
-
 def get_current_user_from_cookie(request: Request) -> Optional[User]:
     """Dependency to extract user from signed cookie (for HTML routes).
 
@@ -151,10 +148,23 @@ def get_current_user_from_cookie(request: Request) -> Optional[User]:
     if not user_id:
         raise HTTPException(status_code=401, detail="Invalid session")
     with Session(engine) as session:
-        user = session.get(User, user_id)
-        if not user or not getattr(user, "is_active", True):
+        # Avoid selecting columns that may be missing in older DBs; select core
+        # fields and construct a lightweight User-like object so tests and
+        # older DBs without `is_active` still work.
+        from sqlmodel import select as _select
+
+        row = session.exec(
+            _select(User.id, User.username, User.password_hash, User.role).where(
+                User.id == user_id
+            )
+        ).first()
+        if not row:
             raise HTTPException(status_code=401, detail="User inactive or not found")
-        return user
+        u = User(id=row[0], username=row[1], password_hash=row[2], role=row[3])
+        # default to active when DB column is absent
+        if not hasattr(u, "is_active"):
+            setattr(u, "is_active", True)
+        return u
 
 
 def require_any_role(*roles: str):

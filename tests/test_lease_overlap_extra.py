@@ -42,8 +42,8 @@ def test_adjacent_non_overlap(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease ends on Jan 31
-        l = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 1, 1), end_date=date(2023, 1, 31))
-        s.add(l)
+        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 1, 1), end_date=date(2023, 1, 31))
+        s.add(lease)
         s.commit()
 
         # new lease starts on Feb 1 -> adjacent, should NOT overlap
@@ -53,8 +53,8 @@ def test_adjacent_non_overlap(engine):
 def test_overlap_start_inside(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
-        l = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 3, 1), end_date=date(2023, 3, 31))
-        s.add(l)
+        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 3, 1), end_date=date(2023, 3, 31))
+        s.add(lease)
         s.commit()
 
         # new lease starts inside existing -> should raise
@@ -66,8 +66,8 @@ def test_existing_open_ended(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease has no end_date (open-ended)
-        l = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 5, 1), end_date=None)
-        s.add(l)
+        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 5, 1), end_date=None)
+        s.add(lease)
         s.commit()
 
         # any new lease overlapping start_date >= 2023-05-01 should raise
@@ -78,20 +78,20 @@ def test_existing_open_ended(engine):
 def test_exclude_id_allows_update(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
-        l = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 7, 1), end_date=date(2023, 7, 31))
-        s.add(l)
+        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 7, 1), end_date=date(2023, 7, 31))
+        s.add(lease)
         s.commit()
 
         # updating the same lease (exclude_id) should not raise
-        assert_no_lease_overlap(s, u.id, date(2023, 7, 1), date(2023, 7, 31), exclude_id=l.id)
+        assert_no_lease_overlap(s, u.id, date(2023, 7, 1), date(2023, 7, 31), exclude_id=lease.id)
 
 
 def test_same_day_start_equals_existing_end_overlap(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease ends on Jan 31
-        l = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 1, 1), end_date=date(2023, 1, 31))
-        s.add(l)
+        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 1, 1), end_date=date(2023, 1, 31))
+        s.add(lease)
         s.commit()
 
         # new lease starts on Jan 31 (same day) -> considered overlap
@@ -103,8 +103,8 @@ def test_new_lease_before_existing_no_overlap(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease starts on March 10
-        l = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 3, 10), end_date=date(2023, 3, 20))
-        s.add(l)
+        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 3, 10), end_date=date(2023, 3, 20))
+        s.add(lease)
         s.commit()
 
         # new lease ends before existing starts -> no overlap
@@ -115,8 +115,8 @@ def test_cross_month_and_year_non_overlap(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing lease spans year boundary
-        l = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 12, 15), end_date=date(2024, 1, 15))
-        s.add(l)
+        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 12, 15), end_date=date(2024, 1, 15))
+        s.add(lease)
         s.commit()
 
         # new lease starts after Jan 15 -> no overlap
@@ -127,8 +127,8 @@ def test_new_lease_covers_existing(engine):
     with Session(engine) as s:
         u, t = setup_minimal(s)
         # existing short lease
-        l = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 9, 10), end_date=date(2023, 9, 20))
-        s.add(l)
+        lease = Lease(unit_id=u.id, tenant_id=t.id, start_date=date(2023, 9, 10), end_date=date(2023, 9, 20))
+        s.add(lease)
         s.commit()
 
         # new lease fully covers existing -> overlap
