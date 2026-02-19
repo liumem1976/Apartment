@@ -187,6 +187,8 @@ class User(SQLModel, table=True):
     username: str = Field(nullable=False, unique=True)
     password_hash: str
     role: str
+    # indicate whether the account is active; default True to allow login
+    is_active: bool = Field(default=True)
 
 
 class AuditLog(SQLModel, table=True):

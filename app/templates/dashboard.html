@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="text-2xl font-bold mb-4">仪表板</h2>
+  <p>仅限具有 `clerk` 或 `admin` 权限的用户访问。</p>
+  <p class="mt-4">当前用户：{{ current_user.username }}（角色：{{ current_user.role }}）</p>
+{% endblock %}

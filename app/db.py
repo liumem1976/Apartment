@@ -1,9 +1,11 @@
+import os
+
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from sqlmodel import SQLModel, create_engine
 
-# SQLite database file (named params enforced via SQLModel/SQLAlchemy usage)
-DATABASE_URL = "sqlite:///./data/app.db"
+# Allow overriding the database URL via environment for tests/CI
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./data/app.db")
 
 # create_engine with check_same_thread False for uvicorn async workers
 engine = create_engine(

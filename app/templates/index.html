@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="text-2xl font-bold mb-4">主页</h2>
+  {% if current_user %}
+    <p>您已登录，角色：{{ current_user.role }}</p>
+    <p class="mt-4"><a href="/dashboard" class="text-blue-600">进入仪表板</a></p>
+  {% else %}
+    <p>请先 <a href="/login" class="text-blue-600">登录</a>。</p>
+  {% endif %}
+{% endblock %}
