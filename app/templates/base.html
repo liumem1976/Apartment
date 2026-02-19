@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Apartment 管理</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <header class="bg-white shadow">
+    <div class="max-w-4xl mx-auto py-4 px-6 flex justify-between items-center">
+      <h1 class="text-xl font-semibold">Apartment 管理</h1>
+      <nav>
+        {% if current_user %}
+          <span class="mr-4">欢迎，{{ current_user.username }} ({{ current_user.role }})</span>
+          <a href="/logout" class="text-blue-600">登出</a>
+        {% else %}
+          <a href="/login" class="text-blue-600">登录</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-4xl mx-auto p-6">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

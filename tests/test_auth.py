@@ -41,3 +41,48 @@ def test_generate_bill_requires_auth():
         "/api/v1/bills/generate", params={"unit_id": 1, "date": "2026-02-15"}
     )
     assert r.status_code in (401, 403)
+
+
+def test_cookie_login_logout_and_dashboard_rbac():
+    client = TestClient(app)
+    # ensure DB initialized
+    # create a clerk user
+    with Session(engine) as session:
+        existing = session.exec(select(User).where(User.username == "testclerk")).first()
+        if not existing:
+            u = User(username="testclerk", password_hash=get_password_hash("s3cret"), role="clerk")
+            session.add(u)
+            session.commit()
+
+    # login via HTML form
+    r = client.post("/login", data={"username": "testclerk", "password": "s3cret"})
+    assert r.status_code in (200, 303, 307)
+
+    # dashboard should be accessible
+    r2 = client.get("/dashboard")
+    assert r2.status_code == 200
+    assert "testclerk" in r2.text
+
+    # logout
+    r3 = client.get("/logout")
+    assert r3.status_code in (200, 303, 307)
+
+    # dashboard now requires auth
+    r4 = client.get("/dashboard")
+    assert r4.status_code == 401
+
+
+def test_cookie_login_failed():
+    client = TestClient(app)
+    # ensure user
+    with Session(engine) as session:
+        existing = session.exec(select(User).where(User.username == "failuser")).first()
+        if not existing:
+            u = User(username="failuser", password_hash=get_password_hash("goodpw"), role="clerk")
+            session.add(u)
+            session.commit()
+
+    r = client.post("/login", data={"username": "failuser", "password": "badpw"}, allow_redirects=False)
+    assert r.status_code in (303, 307)
+    # no session cookie set
+    assert "ap_session" not in client.cookies

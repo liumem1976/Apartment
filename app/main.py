@@ -15,7 +15,8 @@ from fastapi import (
     UploadFile,
 )
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session, select
 
@@ -25,6 +26,10 @@ from .auth import (
     get_current_user,
     get_password_hash,
     require_role,
+    create_session_cookie,
+    get_current_user_from_cookie,
+    require_role_cookie,
+    SESSION_COOKIE_NAME,
 )
 from .billing import generate_batch_for_company, generate_bill_for_unit
 from .db import engine, init_db
@@ -32,6 +37,8 @@ from .imports import process_import_batch
 from .models import AuditLog, Bill, BillLine, ImportBatch, User
 
 app = FastAPI(title="LAN Apartment Billing System")
+
+templates = Jinja2Templates(directory="app/templates")
 
 # Strict CORS configuration placeholder; set via env `CORS_ALLOWED`
 allowed = os.getenv("CORS_ALLOWED", "").split(",") if os.getenv("CORS_ALLOWED") else []
@@ -66,8 +73,57 @@ def on_startup():
 
 
 @app.get("/", response_class=HTMLResponse)
-def index():
-    return "<h1>LAN Apartment Billing System</h1><p>Service up.</p>"
+def index(request: Request):
+    # 尝试从 cookie 中读取当前用户（如果存在则显示欢迎信息）
+    current_user = None
+    try:
+        current_user = get_current_user_from_cookie(request)
+    except Exception:
+        current_user = None
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "current_user": current_user}
+    )
+
+
+@app.get("/login", response_class=HTMLResponse)
+def login_get(request: Request, error: Optional[str] = None):
+    return templates.TemplateResponse(
+        "login.html", {"request": request, "error": error}
+    )
+
+
+@app.post("/login")
+async def login_post(request: Request):
+    form = await request.form()
+    username = form.get("username")
+    password = form.get("password")
+    user = authenticate_user(username, password)
+    if not user:
+        return RedirectResponse(url="/login?error=invalid", status_code=303)
+    token = create_session_cookie(user)
+    resp = RedirectResponse(url="/", status_code=303)
+    resp.set_cookie(
+        key=SESSION_COOKIE_NAME,
+        value=token,
+        httponly=True,
+        samesite="lax",
+        max_age=60 * 60 * 12,
+    )
+    return resp
+
+
+@app.get("/logout")
+def logout(request: Request):
+    resp = RedirectResponse(url="/", status_code=303)
+    resp.delete_cookie(SESSION_COOKIE_NAME)
+    return resp
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+def dashboard(request: Request, current_user: User = Depends(require_role_cookie("clerk"))):
+    return templates.TemplateResponse(
+        "dashboard.html", {"request": request, "current_user": current_user}
+    )
 
 
 @app.get("/api/health")
