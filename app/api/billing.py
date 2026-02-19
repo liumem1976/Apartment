@@ -18,8 +18,15 @@ from ..schemas_billing import (
 router = APIRouter(prefix="/api/v1/templates", tags=["billing"])
 
 
-@router.get("/", response_model=List[BillTemplateRead], dependencies=[Depends(require_any_role("clerk", "sales"))])
-def list_templates(active: Optional[bool] = None, current_user=Depends(require_any_role("clerk", "sales"))):
+@router.get(
+    "/",
+    response_model=List[BillTemplateRead],
+    dependencies=[Depends(require_any_role("clerk", "sales"))],
+)
+def list_templates(
+    active: Optional[bool] = None,
+    current_user=Depends(require_any_role("clerk", "sales")),
+):
     with Session(engine) as session:
         stmt = select(BillTemplate)
         if active is not None:
@@ -28,7 +35,9 @@ def list_templates(active: Optional[bool] = None, current_user=Depends(require_a
         out = []
         for t in templates:
             lines = session.exec(
-                select(BillTemplateLine).where(BillTemplateLine.template_id == t.id).order_by(BillTemplateLine.sort_order)
+                select(BillTemplateLine)
+                .where(BillTemplateLine.template_id == t.id)
+                .order_by(BillTemplateLine.sort_order)
             ).all()
             items = [
                 {
@@ -55,8 +64,12 @@ def list_templates(active: Optional[bool] = None, current_user=Depends(require_a
         return out
 
 
-@router.post("/", response_model=BillTemplateRead, dependencies=[Depends(require_role("admin"))])
-def create_template(payload: BillTemplateCreate, current_user=Depends(require_role("admin"))):
+@router.post(
+    "/", response_model=BillTemplateRead, dependencies=[Depends(require_role("admin"))]
+)
+def create_template(
+    payload: BillTemplateCreate, current_user=Depends(require_role("admin"))
+):
     with Session(engine) as session:
         t = BillTemplate(
             name=payload.name,
@@ -81,7 +94,9 @@ def create_template(payload: BillTemplateCreate, current_user=Depends(require_ro
         session.commit()
         # build response dict to avoid detached lazy-loading issues
         lines = session.exec(
-            select(BillTemplateLine).where(BillTemplateLine.template_id == t.id).order_by(BillTemplateLine.sort_order)
+            select(BillTemplateLine)
+            .where(BillTemplateLine.template_id == t.id)
+            .order_by(BillTemplateLine.sort_order)
         ).all()
         items = [
             {
@@ -112,7 +127,9 @@ def get_template(template_id: int):
         if not t:
             raise HTTPException(status_code=404, detail="template not found")
         lines = session.exec(
-            select(BillTemplateLine).where(BillTemplateLine.template_id == t.id).order_by(BillTemplateLine.sort_order)
+            select(BillTemplateLine)
+            .where(BillTemplateLine.template_id == t.id)
+            .order_by(BillTemplateLine.sort_order)
         ).all()
         items = [
             {
@@ -136,8 +153,16 @@ def get_template(template_id: int):
         }
 
 
-@router.put("/{template_id}", response_model=BillTemplateRead, dependencies=[Depends(require_role("admin"))])
-def update_template(template_id: int, payload: BillTemplateUpdate, current_user=Depends(require_role("admin"))):
+@router.put(
+    "/{template_id}",
+    response_model=BillTemplateRead,
+    dependencies=[Depends(require_role("admin"))],
+)
+def update_template(
+    template_id: int,
+    payload: BillTemplateUpdate,
+    current_user=Depends(require_role("admin")),
+):
     with Session(engine) as session:
         t = session.get(BillTemplate, template_id)
         if not t:
@@ -155,7 +180,9 @@ def update_template(template_id: int, payload: BillTemplateUpdate, current_user=
         # replace items if provided
         if payload.items is not None:
             # delete existing
-            existing = session.exec(select(BillTemplateLine).where(BillTemplateLine.template_id == t.id)).all()
+            existing = session.exec(
+                select(BillTemplateLine).where(BillTemplateLine.template_id == t.id)
+            ).all()
             for e in existing:
                 session.delete(e)
             session.commit()
@@ -172,7 +199,9 @@ def update_template(template_id: int, payload: BillTemplateUpdate, current_user=
 
         session.refresh(t)
         lines = session.exec(
-            select(BillTemplateLine).where(BillTemplateLine.template_id == t.id).order_by(BillTemplateLine.sort_order)
+            select(BillTemplateLine)
+            .where(BillTemplateLine.template_id == t.id)
+            .order_by(BillTemplateLine.sort_order)
         ).all()
         items = [
             {
@@ -203,7 +232,9 @@ def delete_template(template_id: int, current_user=Depends(require_role("admin")
         if not t:
             raise HTTPException(status_code=404, detail="template not found")
         # delete lines first
-        lines = session.exec(select(BillTemplateLine).where(BillTemplateLine.template_id == t.id)).all()
+        lines = session.exec(
+            select(BillTemplateLine).where(BillTemplateLine.template_id == t.id)
+        ).all()
         for ln in lines:
             session.delete(ln)
         session.delete(t)
@@ -216,8 +247,16 @@ class InstantiatePayload:
     date: str
 
 
-@router.post("/{template_id}/instantiate", dependencies=[Depends(require_any_role("clerk", "sales"))])
-def instantiate_template(template_id: int, unit_id: int, date: str, current_user=Depends(require_any_role("clerk", "sales"))):
+@router.post(
+    "/{template_id}/instantiate",
+    dependencies=[Depends(require_any_role("clerk", "sales"))],
+)
+def instantiate_template(
+    template_id: int,
+    unit_id: int,
+    date: str,
+    current_user=Depends(require_any_role("clerk", "sales")),
+):
     # create a draft bill for the unit based on template lines (amounts left zero)
     from datetime import datetime
 
@@ -241,7 +280,9 @@ def instantiate_template(template_id: int, unit_id: int, date: str, current_user
         cycle_start, cycle_end = compute_billing_cycle(lease.start_date, d)
 
         # ensure not duplicate
-        existing = session.exec(select(Bill).where(Bill.unit_id == unit_id, Bill.cycle_start == cycle_start)).first()
+        existing = session.exec(
+            select(Bill).where(Bill.unit_id == unit_id, Bill.cycle_start == cycle_start)
+        ).first()
         if existing:
             raise HTTPException(status_code=400, detail="bill already exists for cycle")
 
@@ -265,7 +306,11 @@ def instantiate_template(template_id: int, unit_id: int, date: str, current_user
         session.flush()
 
         # copy template lines
-        tlines = session.exec(select(BillTemplateLine).where(BillTemplateLine.template_id == t.id).order_by(BillTemplateLine.sort_order)).all()
+        tlines = session.exec(
+            select(BillTemplateLine)
+            .where(BillTemplateLine.template_id == t.id)
+            .order_by(BillTemplateLine.sort_order)
+        ).all()
         for tl in tlines:
             # resolve charge item code
             ci = session.get(ChargeItem, tl.charge_item_id)
