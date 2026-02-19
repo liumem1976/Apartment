@@ -33,9 +33,8 @@ def upgrade() -> None:
     operation — test thoroughly on a copy of production before enabling.
     """
     if not RUN_DEDUPE:
-        op.get_context().impl.get_engine().logger.info(
-            "Fix-up migration skipped because RUN_DEDUPE=False"
-        )
+        # Avoid calling into engine internals during automated runs — just skip.
+        print("Fix-up migration skipped because RUN_DEDUPE=False")
         return
 
     # The following DELETE is intentionally simple and compatible with SQLite

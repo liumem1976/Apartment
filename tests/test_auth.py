@@ -82,7 +82,7 @@ def test_cookie_login_failed():
             session.add(u)
             session.commit()
 
-    r = client.post("/login", data={"username": "failuser", "password": "badpw"}, allow_redirects=False)
+    r = client.post("/login", data={"username": "failuser", "password": "badpw"}, follow_redirects=False)
     assert r.status_code in (303, 307)
     # no session cookie set
     assert "ap_session" not in client.cookies

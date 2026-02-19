@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import os
 from typing import Optional
 
-from fastapi import Depends, HTTPException, status, Request
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -28,16 +28,16 @@ def _sign_session(payload: str) -> str:
 
     Format: payload|hexsig
     """
-    import hmac
     import hashlib
+    import hmac
 
     sig = hmac.new(SECRET_KEY.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256).hexdigest()
     return f"{payload}|{sig}"
 
 
 def _unsign_session(token: str) -> Optional[str]:
-    import hmac
     import hashlib
+    import hmac
 
     try:
         payload, sig = token.rsplit("|", 1)

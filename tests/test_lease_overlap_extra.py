@@ -3,8 +3,15 @@ from datetime import date
 import pytest
 from sqlmodel import Session, SQLModel, create_engine
 
-from app.models import Lease, Unit, Tenant, Company, Community, Building
-from app.models import assert_no_lease_overlap
+from app.models import (
+    Building,
+    Community,
+    Company,
+    Lease,
+    Tenant,
+    Unit,
+    assert_no_lease_overlap,
+)
 
 
 def setup_minimal(session: Session):

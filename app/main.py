@@ -16,20 +16,20 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
 
 from .auth import (
+    SESSION_COOKIE_NAME,
     authenticate_user,
     create_access_token,
+    create_session_cookie,
     get_current_user,
+    get_current_user_from_cookie,
     get_password_hash,
     require_role,
-    create_session_cookie,
-    get_current_user_from_cookie,
     require_role_cookie,
-    SESSION_COOKIE_NAME,
 )
 from .billing import generate_batch_for_company, generate_bill_for_unit
 from .db import engine, init_db
